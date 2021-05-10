@@ -1,7 +1,7 @@
 plugins {
     java
     id("com.github.johnrengelman.shadow") version "6.1.0" apply false
-    id("io.papermc.paperweight") version "1.0.0-LOCAL-SNAPSHOT"
+    id("io.papermc.paperweight") version "1.0.0-SNAPSHOT"
 }
 
 group = "com.destroystokyo.paper"

@@ -1,0 +1,55 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Shane Freeder <theboyetronic@gmail.com>
+Date: Sun, 18 Apr 2021 21:27:01 +0100
+Subject: [PATCH] Validate bungee forwarded hostname
+
+Seriously, fix your firewalls. -.-
+
+diff --git a/src/main/java/net/minecraft/server/network/ServerHandshakePacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerHandshakePacketListenerImpl.java
+index 83768f4c6769b2e563479e7b7e43453bcf16de09..3ab3b5838d725a24e094f4da85929d2b48ab9c79 100644
+--- a/src/main/java/net/minecraft/server/network/ServerHandshakePacketListenerImpl.java
++++ b/src/main/java/net/minecraft/server/network/ServerHandshakePacketListenerImpl.java
+@@ -1,5 +1,8 @@
+ package net.minecraft.server.network;
+ 
++import com.google.common.net.InetAddresses;
++import com.google.common.net.InternetDomainName;
++
+ import net.minecraft.SharedConstants;
+ import net.minecraft.network.Connection;
+ import net.minecraft.network.ConnectionProtocol;
+@@ -26,6 +29,7 @@ public class ServerHandshakePacketListenerImpl implements ServerHandshakePacketL
+     private static final Component IGNORE_STATUS_REASON = new TextComponent("Ignoring status request");
+     private final MinecraftServer server;
+     private final Connection connection; final Connection getNetworkManager() { return this.connection; } // Paper - OBFHELPER
++    private static final boolean BYPASS_HOSTCHECK = Boolean.getBoolean("Paper.bypassHostCheck"); // Paper
+ 
+     public ServerHandshakePacketListenerImpl(MinecraftServer server, Connection connection) {
+         this.server = server;
+@@ -114,6 +118,14 @@ public class ServerHandshakePacketListenerImpl implements ServerHandshakePacketL
+                 //if (org.spigotmc.SpigotConfig.bungee) { // Paper - comment out, we check above!
+                         String[] split = packet.hostName.split("\00");
+                         if ( split.length == 3 || split.length == 4 ) {
++                            // Paper start
++                            if (!BYPASS_HOSTCHECK && !validate(split[1])) {
++                                final TranslatableComponent message = new TranslatableComponent("Invalid hostname");
++                                this.getNetworkManager().send(new ClientboundLoginDisconnectPacket(message));
++                                this.getNetworkManager().disconnect(message);
++                                return;
++                            }
++                            // Paper end
+                             packet.hostName = split[0];
+                             connection.address = new java.net.InetSocketAddress(split[1], ((java.net.InetSocketAddress) connection.getRemoteAddress()).getPort());
+                             connection.spoofedUUID = com.mojang.util.UUIDTypeAdapter.fromString( split[2] );
+@@ -158,4 +170,11 @@ public class ServerHandshakePacketListenerImpl implements ServerHandshakePacketL
+     public Connection getConnection() {
+         return this.connection;
+     }
++
++    // Paper start - https://stackoverflow.com/questions/9954140/check-if-a-string-is-a-hostname-or-an-ip-address-in-java
++    public static boolean validate(final String hostname) {
++        //noinspection UnstableApiUsage
++        return InetAddresses.isUriInetAddress(hostname);
++    }
++    // Paper end
+ }

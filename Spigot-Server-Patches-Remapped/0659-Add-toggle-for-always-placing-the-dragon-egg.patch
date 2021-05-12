@@ -1,0 +1,33 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: William Blake Galbreath <Blake.Galbreath@GMail.com>
+Date: Thu, 26 Nov 2020 11:47:24 +0000
+Subject: [PATCH] Add toggle for always placing the dragon egg
+
+
+diff --git a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
+index b98da7b43df5fc733a166b00d53c9d342a804796..121c0640695382eee2f5e3f4d4fb5926a79028a3 100644
+--- a/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
++++ b/src/main/java/com/destroystokyo/paper/PaperWorldConfig.java
+@@ -793,4 +793,9 @@ public class PaperWorldConfig {
+             if (value != -1) entityPerChunkSaveLimits.put(type, value);
+         });
+     }
++
++    public boolean enderDragonsDeathAlwaysPlacesDragonEgg = false;
++    private void enderDragonsDeathAlwaysPlacesDragonEgg() {
++        enderDragonsDeathAlwaysPlacesDragonEgg = getBoolean("ender-dragons-death-always-places-dragon-egg", enderDragonsDeathAlwaysPlacesDragonEgg);
++    }
+ }
+diff --git a/src/main/java/net/minecraft/world/level/dimension/end/EndDragonFight.java b/src/main/java/net/minecraft/world/level/dimension/end/EndDragonFight.java
+index 5d3971de53994dc38d5646b1da3a6ddbdb495939..fc571f0f2f3ff0fc18582263c98aea666c82a3c9 100644
+--- a/src/main/java/net/minecraft/world/level/dimension/end/EndDragonFight.java
++++ b/src/main/java/net/minecraft/world/level/dimension/end/EndDragonFight.java
+@@ -400,7 +400,7 @@ public class EndDragonFight {
+             this.dragonEvent.setVisible(false);
+             this.spawnExitPortal(true);
+             this.spawnNewGateway();
+-            if (!this.previouslyKilled) {
++            if (this.level.paperConfig.enderDragonsDeathAlwaysPlacesDragonEgg || !this.previouslyKilled) { // Paper - always place dragon egg
+                 this.level.setBlockAndUpdate(this.level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, EndPodiumFeature.END_PODIUM_LOCATION), Blocks.DRAGON_EGG.defaultBlockState());
+             }
+ 

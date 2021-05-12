@@ -1,0 +1,37 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Aikar <aikar@aikar.co>
+Date: Tue, 5 Jun 2018 23:00:29 -0400
+Subject: [PATCH] ItemStack#getMaxItemUseDuration
+
+Allows you to determine how long it takes to use a usable/consumable item
+
+diff --git a/src/main/java/net/minecraft/world/item/ItemStack.java b/src/main/java/net/minecraft/world/item/ItemStack.java
+index 11ae43260c70906f77101975a1388b8f16743fd3..9bc4f84c8e4f0ce26dcdd5dc309b6f32d17309d3 100644
+--- a/src/main/java/net/minecraft/world/item/ItemStack.java
++++ b/src/main/java/net/minecraft/world/item/ItemStack.java
+@@ -604,6 +604,7 @@ public final class ItemStack {
+         this.getItem().onCraftedBy(this, world, player);
+     }
+ 
++    public int getItemUseMaxDuration() { return getUseDuration(); } // Paper - OBFHELPER
+     public int getUseDuration() {
+         return this.getItem().getUseDuration(this);
+     }
+diff --git a/src/main/java/org/bukkit/craftbukkit/inventory/CraftItemStack.java b/src/main/java/org/bukkit/craftbukkit/inventory/CraftItemStack.java
+index 5f0ccdeb8565505278caa591f7390047eab49cf4..44caf00330e4f4f74745973dbe709980f0b61269 100644
+--- a/src/main/java/org/bukkit/craftbukkit/inventory/CraftItemStack.java
++++ b/src/main/java/org/bukkit/craftbukkit/inventory/CraftItemStack.java
+@@ -173,6 +173,13 @@ public final class CraftItemStack extends ItemStack {
+         return (handle == null) ? Material.AIR.getMaxStackSize() : handle.getItem().getMaxStackSize();
+     }
+ 
++    // Paper start
++    @Override
++    public int getMaxItemUseDuration() {
++        return handle == null ? 0 : handle.getItemUseMaxDuration();
++    }
++    // Paper end
++
+     @Override
+     public void addUnsafeEnchantment(Enchantment ench, int level) {
+         Validate.notNull(ench, "Cannot add null enchantment");

@@ -1,0 +1,71 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: William Blake Galbreath <Blake.Galbreath@GMail.com>
+Date: Tue, 11 Feb 2020 21:56:48 -0600
+Subject: [PATCH] EntityMoveEvent
+
+
+diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
+index 099a08515d25d9809fd090c6232cfabb3d3b6af8..0151f12fb78262e2cc6d62067d4945b94c718649 100644
+--- a/src/main/java/net/minecraft/server/MinecraftServer.java
++++ b/src/main/java/net/minecraft/server/MinecraftServer.java
+@@ -12,6 +12,7 @@ import com.mojang.datafixers.DataFixer;
+ import io.netty.buffer.ByteBuf;
+ import io.netty.buffer.ByteBufOutputStream;
+ import io.netty.buffer.Unpooled;
++import io.papermc.paper.event.entity.EntityMoveEvent;
+ import it.unimi.dsi.fastutil.longs.LongIterator;
+ import java.awt.image.BufferedImage;
+ import java.io.BufferedWriter;
+@@ -1456,6 +1457,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
+         while (iterator.hasNext()) {
+             ServerLevel worldserver = (ServerLevel) iterator.next();
+             worldserver.hasPhysicsEvent =  org.bukkit.event.block.BlockPhysicsEvent.getHandlerList().getRegisteredListeners().length > 0; // Paper
++            worldserver.hasEntityMoveEvent =  EntityMoveEvent.getHandlerList().getRegisteredListeners().length > 0; // Paper
+             HopperBlockEntity.skipHopperEvents = worldserver.paperConfig.disableHopperMoveEvents || org.bukkit.event.inventory.InventoryMoveItemEvent.getHandlerList().getRegisteredListeners().length == 0; // Paper
+ 
+             this.profiler.push(() -> {
+diff --git a/src/main/java/net/minecraft/server/level/ServerLevel.java b/src/main/java/net/minecraft/server/level/ServerLevel.java
+index 18f056e59fe6e9418b6994659dd1e192ede0171d..581104996fda22fb4f2d6950ea874adbda6e7a16 100644
+--- a/src/main/java/net/minecraft/server/level/ServerLevel.java
++++ b/src/main/java/net/minecraft/server/level/ServerLevel.java
+@@ -207,6 +207,7 @@ public class ServerLevel extends net.minecraft.world.level.Level implements Worl
+     public final LevelStorageSource.LevelStorageAccess convertable;
+     public final UUID uuid;
+     public boolean hasPhysicsEvent = true; // Paper
++    public boolean hasEntityMoveEvent = false; // Paper
+     private static Throwable getAddToWorldStackTrace(Entity entity) {
+         return new Throwable(entity + " Added to world at " + new java.util.Date());
+     }
+diff --git a/src/main/java/net/minecraft/world/entity/LivingEntity.java b/src/main/java/net/minecraft/world/entity/LivingEntity.java
+index 4aed3989b7e6f065165e5f3b10529cc3063d8c92..08aec6a957a7d612f016f14df6934af69b34ccdf 100644
+--- a/src/main/java/net/minecraft/world/entity/LivingEntity.java
++++ b/src/main/java/net/minecraft/world/entity/LivingEntity.java
+@@ -10,6 +10,7 @@ import com.mojang.datafixers.util.Pair;
+ import com.mojang.serialization.DataResult;
+ import com.mojang.serialization.Dynamic;
+ import com.mojang.serialization.DynamicOps;
++import io.papermc.paper.event.entity.EntityMoveEvent;
+ import java.util.Collection;
+ import java.util.ConcurrentModificationException;
+ import java.util.Iterator;
+@@ -2909,6 +2910,20 @@ public abstract class LivingEntity extends Entity {
+ 
+         this.pushEntities();
+         this.level.getProfiler().pop();
++        // Paper start
++        if (((ServerLevel) level).hasEntityMoveEvent) {
++            if (xo != getX() || yo != getY() || zo != getZ() || yRotO != yRot || xRotO != xRot) {
++                Location from = new Location(level.getWorld(), xo, yo, zo, yRotO, xRotO);
++                Location to = new Location (level.getWorld(), getX(), getY(), getZ(), yRot, xRot);
++                EntityMoveEvent event = new EntityMoveEvent(getBukkitLivingEntity(), from, to.clone());
++                if (!event.callEvent()) {
++                    absMoveTo(from.getX(), from.getY(), from.getZ(), from.getYaw(), from.getPitch());
++                } else if (!to.equals(event.getTo())) {
++                    absMoveTo(event.getTo().getX(), event.getTo().getY(), event.getTo().getZ(), event.getTo().getYaw(), event.getTo().getPitch());
++                }
++            }
++        }
++        // Paper end
+         if (!this.level.isClientSide && this.isSensitiveToWater() && this.isInWaterRainOrBubble()) {
+             this.hurt(DamageSource.DROWN, 1.0F);
+         }

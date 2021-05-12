@@ -1,0 +1,35 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Lukasz Derlatka <toranktto@gmail.com>
+Date: Mon, 11 Nov 2019 16:08:13 +0100
+Subject: [PATCH] Fix AssertionError when player hand set to empty type
+
+Fixes an AssertionError when setting the player's item in hand to null or a new ItemStack of Air in PlayerInteractEvent
+Fixes GH-2718
+
+diff --git a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
+index 91d7d6e9246810ffd6f77d33570770a57aeac05e..5e30572fc4e75765a242a636f2dc503178eab5b2 100644
+--- a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
++++ b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
+@@ -1705,6 +1705,10 @@ public class ServerGamePacketListenerImpl implements ServerGamePacketListener {
+                 this.player.getBukkitEntity().updateInventory(); // SPIGOT-2524
+                 return;
+             }
++            // Paper start
++            itemstack = this.player.getItemInHand(enumhand);
++            if (itemstack.isEmpty()) return;
++            // Paper end
+             InteractionResult enuminteractionresult = this.player.gameMode.useItem(this.player, worldserver, itemstack, enumhand);
+ 
+             if (enuminteractionresult.shouldSwing()) {
+diff --git a/src/main/java/net/minecraft/world/entity/LivingEntity.java b/src/main/java/net/minecraft/world/entity/LivingEntity.java
+index feeaa1a51d29d6e98b0c1eec7024f58a9705a65d..d71e36b72e09b2db0ec8a918e528fc87a6d4c059 100644
+--- a/src/main/java/net/minecraft/world/entity/LivingEntity.java
++++ b/src/main/java/net/minecraft/world/entity/LivingEntity.java
+@@ -2153,6 +2153,7 @@ public abstract class LivingEntity extends Entity {
+         return predicate.test(this.getMainHandItem().getItem()) || predicate.test(this.getOffhandItem().getItem());
+     }
+ 
++    public final ItemStack getItemInHand(InteractionHand enumhand) { return this.getItemInHand(enumhand); } // Paper - OBFHELPER
+     public ItemStack getItemInHand(InteractionHand hand) {
+         if (hand == InteractionHand.MAIN_HAND) {
+             return this.getItemBySlot(EquipmentSlot.MAINHAND);

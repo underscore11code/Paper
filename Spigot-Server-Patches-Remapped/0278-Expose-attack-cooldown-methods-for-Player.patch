@@ -1,0 +1,41 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: BillyGalbreath <Blake.Galbreath@GMail.com>
+Date: Tue, 4 Sep 2018 15:02:00 -0500
+Subject: [PATCH] Expose attack cooldown methods for Player
+
+
+diff --git a/src/main/java/net/minecraft/world/entity/player/Player.java b/src/main/java/net/minecraft/world/entity/player/Player.java
+index 709e930eef7bae5694238ed8c4d0ef59316bb715..14d5acff198338c68162e33d4a90f74be77cb15f 100644
+--- a/src/main/java/net/minecraft/world/entity/player/Player.java
++++ b/src/main/java/net/minecraft/world/entity/player/Player.java
+@@ -2100,6 +2100,7 @@ public abstract class Player extends LivingEntity {
+         this.entityData.set(Player.DATA_SHOULDER_RIGHT, entityTag);
+     }
+ 
++    public float getCooldownPeriod() { return this.getCurrentItemAttackStrengthDelay(); } // Paper - OBFHELPER
+     public float getCurrentItemAttackStrengthDelay() {
+         return (float) (1.0D / this.getAttributeValue(Attributes.ATTACK_SPEED) * 20.0D);
+     }
+diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
+index fd1426cf4429d9365a756d6d34f5a0a36d8dfbc7..98f5b91da0939ed5d11ebc5310e49170a79d55c4 100644
+--- a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
++++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
+@@ -2183,6 +2183,18 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
+         connection.send(new net.minecraft.network.protocol.game.ClientboundOpenBookPacket(net.minecraft.world.InteractionHand.MAIN_HAND));
+         connection.send(new net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket(0, slot, inventory.getSelected()));
+     }
++
++    public float getCooldownPeriod() {
++        return getHandle().getCooldownPeriod();
++    }
++
++    public float getCooledAttackStrength(float adjustTicks) {
++        return getHandle().getAttackStrengthScale(adjustTicks);
++    }
++
++    public void resetCooldown() {
++        getHandle().resetAttackStrengthTicker();
++    }
+     // Paper end
+ 
+     // Spigot start

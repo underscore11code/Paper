@@ -1,0 +1,58 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Aikar <aikar@aikar.co>
+Date: Sat, 16 Jan 2021 14:30:12 -0500
+Subject: [PATCH] Make ProjectileHitEvent Cancellable
+
+Allows cancelling things like detonating TNT from Fire Arrows
+
+diff --git a/src/main/java/net/minecraft/world/entity/projectile/AbstractHurtingProjectile.java b/src/main/java/net/minecraft/world/entity/projectile/AbstractHurtingProjectile.java
+index d05eb8330b2dc1d60d17fe03ed00632016a9351c..3589200f06c46de4cd406c7f939d3e88ed4c6921 100644
+--- a/src/main/java/net/minecraft/world/entity/projectile/AbstractHurtingProjectile.java
++++ b/src/main/java/net/minecraft/world/entity/projectile/AbstractHurtingProjectile.java
+@@ -86,7 +86,7 @@ public abstract class AbstractHurtingProjectile extends Projectile {
+ 
+                 // CraftBukkit start - Fire ProjectileHitEvent
+                 if (this.removed) {
+-                    CraftEventFactory.callProjectileHitEvent(this, movingobjectposition);
++                    if (!CraftEventFactory.callProjectileHitEvent(this, movingobjectposition)) return; // Paper - this is an undesired duplicate event, but make cancellable
+                 }
+                 // CraftBukkit end
+             }
+diff --git a/src/main/java/net/minecraft/world/entity/projectile/Projectile.java b/src/main/java/net/minecraft/world/entity/projectile/Projectile.java
+index 75dc70ea6134a43f4252202de475962bdb58263f..99b1fa178ecbc33d6b726dfd63e65b0495955e75 100644
+--- a/src/main/java/net/minecraft/world/entity/projectile/Projectile.java
++++ b/src/main/java/net/minecraft/world/entity/projectile/Projectile.java
+@@ -129,7 +129,7 @@ public abstract class Projectile extends Entity {
+     }
+ 
+     protected void onHit(HitResult hitResult) {
+-        org.bukkit.craftbukkit.event.CraftEventFactory.callProjectileHitEvent(this, hitResult); // CraftBukkit - Call event
++        if (!org.bukkit.craftbukkit.event.CraftEventFactory.callProjectileHitEvent(this, hitResult)) return; // CraftBukkit - Call event // Paper - make cancellable
+         HitResult.Type movingobjectposition_enummovingobjecttype = hitResult.getType();
+ 
+         if (movingobjectposition_enummovingobjecttype == HitResult.Type.ENTITY) {
+diff --git a/src/main/java/org/bukkit/craftbukkit/event/CraftEventFactory.java b/src/main/java/org/bukkit/craftbukkit/event/CraftEventFactory.java
+index 142dbce373b90cad18199e59969ec27ad656ecbe..5b71c5fa2ac3776628810e1667954f4c05f06366 100644
+--- a/src/main/java/org/bukkit/craftbukkit/event/CraftEventFactory.java
++++ b/src/main/java/org/bukkit/craftbukkit/event/CraftEventFactory.java
+@@ -1287,9 +1287,9 @@ public class CraftEventFactory {
+         return event;
+     }
+ 
+-    public static void callProjectileHitEvent(Entity entity, HitResult position) {
++    public static boolean callProjectileHitEvent(Entity entity, HitResult position) { // Paper - make cancellable
+         if (position.getType() == HitResult.Type.MISS) {
+-            return;
++            return false; // Paper - make cancellable
+         }
+ 
+         Block hitBlock = null;
+@@ -1306,7 +1306,7 @@ public class CraftEventFactory {
+         }
+ 
+         ProjectileHitEvent event = new ProjectileHitEvent((Projectile) entity.getBukkitEntity(), hitEntity, hitBlock, hitFace);
+-        entity.level.getCraftServer().getPluginManager().callEvent(event);
++        return event.callEvent(); // Paper
+     }
+ 
+     public static ExpBottleEvent callExpBottleEvent(Entity entity, int exp) {

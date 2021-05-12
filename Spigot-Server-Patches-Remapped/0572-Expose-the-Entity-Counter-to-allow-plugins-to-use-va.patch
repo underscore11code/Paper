@@ -1,0 +1,37 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: MeFisto94 <MeFisto94@users.noreply.github.com>
+Date: Fri, 28 Aug 2020 01:41:26 +0200
+Subject: [PATCH] Expose the Entity Counter to allow plugins to use valid and
+ non-conflicting Entity Ids
+
+
+diff --git a/src/main/java/net/minecraft/world/entity/Entity.java b/src/main/java/net/minecraft/world/entity/Entity.java
+index 66ef07e2bd34bad1c99116c8f51130a2379856be..f52938826f1d67b8f5f236e54aaf0dc1843edaa5 100644
+--- a/src/main/java/net/minecraft/world/entity/Entity.java
++++ b/src/main/java/net/minecraft/world/entity/Entity.java
+@@ -3471,4 +3471,10 @@ public abstract class Entity implements Nameable, CommandSource, net.minecraft.s
+ 
+         void accept(Entity entity, double x, double y, double z);
+     }
++
++    // Paper start
++    public static int nextEntityId() {
++        return ENTITY_COUNTER.incrementAndGet();
++    }
++    // Paper end
+ }
+diff --git a/src/main/java/org/bukkit/craftbukkit/util/CraftMagicNumbers.java b/src/main/java/org/bukkit/craftbukkit/util/CraftMagicNumbers.java
+index 148cdf509ccb080cbf2516e9d32819fb25cc7d91..98c757dff25cb05b503265565d754d490658a9f2 100644
+--- a/src/main/java/org/bukkit/craftbukkit/util/CraftMagicNumbers.java
++++ b/src/main/java/org/bukkit/craftbukkit/util/CraftMagicNumbers.java
+@@ -438,6 +438,10 @@ public final class CraftMagicNumbers implements UnsafeValues {
+         return net.minecraft.world.entity.EntityType.getByName(type.getName()).map(net.minecraft.world.entity.EntityType::getDescriptionId).orElse(null);
+     }
+ 
++    public int nextEntityId() {
++        return net.minecraft.world.entity.Entity.nextEntityId();
++    }
++
+     // Paper end
+ 
+     /**

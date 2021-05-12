@@ -1,0 +1,30 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: GreenMeanie <GreenMeanieMC@gmail.com>
+Date: Sat, 20 Oct 2018 22:34:02 -0400
+Subject: [PATCH] Reset players airTicks on respawn
+
+
+diff --git a/src/main/java/net/minecraft/server/level/ServerPlayer.java b/src/main/java/net/minecraft/server/level/ServerPlayer.java
+index 27c25d1fbad60ad8e4d2de378bfce75b8df1eef3..b19a9381f6e53861c3b995ba562c56f33da67930 100644
+--- a/src/main/java/net/minecraft/server/level/ServerPlayer.java
++++ b/src/main/java/net/minecraft/server/level/ServerPlayer.java
+@@ -2150,6 +2150,7 @@ public class ServerPlayer extends Player implements ContainerListener {
+         }
+ 
+         this.setHealth(this.getMaxHealth());
++        this.setAirSupply(this.getMaxAirTicks()); // Paper
+         this.remainingFireTicks = 0;
+         this.fallDistance = 0;
+         this.foodData = new FoodData(this);
+diff --git a/src/main/java/net/minecraft/world/entity/Entity.java b/src/main/java/net/minecraft/world/entity/Entity.java
+index 152144dae4ddeaabda22e31a57deebcdeb6612d0..d0a9320d8e953e8676f48aea000e9669ea2d03a7 100644
+--- a/src/main/java/net/minecraft/world/entity/Entity.java
++++ b/src/main/java/net/minecraft/world/entity/Entity.java
+@@ -2349,6 +2349,7 @@ public abstract class Entity implements Nameable, CommandSource, net.minecraft.s
+ 
+     }
+ 
++    public final int getMaxAirTicks() { return getMaxAirSupply(); } // Paper - OBFHELPER
+     public int getMaxAirSupply() {
+         return 300;
+     }

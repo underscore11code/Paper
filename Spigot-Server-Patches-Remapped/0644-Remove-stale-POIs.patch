@@ -1,0 +1,50 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Shane Freeder <theboyetronic@gmail.com>
+Date: Sat, 9 Jan 2021 14:17:07 +0100
+Subject: [PATCH] Remove stale POIs
+
+
+diff --git a/src/main/java/net/minecraft/server/level/ServerLevel.java b/src/main/java/net/minecraft/server/level/ServerLevel.java
+index f20e3168bd5b23a007500c63708547b80e57f569..18f056e59fe6e9418b6994659dd1e192ede0171d 100644
+--- a/src/main/java/net/minecraft/server/level/ServerLevel.java
++++ b/src/main/java/net/minecraft/server/level/ServerLevel.java
+@@ -2072,6 +2072,11 @@ public class ServerLevel extends net.minecraft.world.level.Level implements Worl
+             });
+             optional1.ifPresent((villageplacetype) -> {
+                 this.getServer().execute(() -> {
++                    // Paper start
++                    if (!optional.isPresent() && this.getPoiStorage().test(blockposition1, com.google.common.base.Predicates.alwaysTrue())) {
++                        this.getPoiStorage().remove(blockposition1);
++                    }
++                    // Paper end
+                     this.getPoiManager().add(blockposition1, villageplacetype);
+                     DebugPackets.sendPoiAddedPacket(this, blockposition1);
+                 });
+@@ -2079,6 +2084,7 @@ public class ServerLevel extends net.minecraft.world.level.Level implements Worl
+         }
+     }
+ 
++    public final PoiManager getPoiStorage() { return this.getPoiManager(); } // Paper - OBFHELPER
+     public PoiManager getPoiManager() {
+         return this.getChunkSource().getPoiManager();
+     }
+diff --git a/src/main/java/net/minecraft/world/entity/ai/village/poi/PoiManager.java b/src/main/java/net/minecraft/world/entity/ai/village/poi/PoiManager.java
+index b9d32e3322c2cce1aca2a90df71b6175a6f8c548..25b26a78a55f98687ed22e986b54d5e9d47a16ea 100644
+--- a/src/main/java/net/minecraft/world/entity/ai/village/poi/PoiManager.java
++++ b/src/main/java/net/minecraft/world/entity/ai/village/poi/PoiManager.java
+@@ -54,6 +54,7 @@ public class PoiManager extends SectionStorage<PoiSection> {
+         ((PoiSection) this.getOrCreate(SectionPos.of(pos).asLong())).add(pos, type);
+     }
+ 
++    public void remove(BlockPos blockposition) { this.remove(blockposition); } // Paper - OBFHELPER
+     public void remove(BlockPos pos) {
+         ((PoiSection) this.getOrCreate(SectionPos.of(pos).asLong())).remove(pos);
+     }
+@@ -138,6 +139,7 @@ public class PoiManager extends SectionStorage<PoiSection> {
+         return ((PoiSection) this.getOrCreate(SectionPos.of(pos).asLong())).release(pos);
+     }
+ 
++    public final boolean test(BlockPos blockposition, Predicate<PoiType> predicate) { return this.exists(blockposition, predicate); } // Paper - OBFHELPER
+     public boolean exists(BlockPos pos, Predicate<PoiType> predicate) {
+         return (Boolean) this.getOrLoad(SectionPos.of(pos).asLong()).map((villageplacesection) -> {
+             return villageplacesection.exists(pos, predicate);

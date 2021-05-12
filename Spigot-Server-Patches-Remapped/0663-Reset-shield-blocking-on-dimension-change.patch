@@ -1,0 +1,22 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Yive <admin@yive.me>
+Date: Sun, 24 Jan 2021 08:55:19 -0800
+Subject: [PATCH] Reset shield blocking on dimension change
+
+
+diff --git a/src/main/java/net/minecraft/server/level/ServerPlayer.java b/src/main/java/net/minecraft/server/level/ServerPlayer.java
+index 38d95d38832dbd6dabb441a06aeffc8da59ad90d..71f343be27716595b9fea491910197339b024f1a 100644
+--- a/src/main/java/net/minecraft/server/level/ServerPlayer.java
++++ b/src/main/java/net/minecraft/server/level/ServerPlayer.java
+@@ -1114,6 +1114,11 @@ public class ServerPlayer extends Player implements ContainerListener {
+                 this.level.getCraftServer().getPluginManager().callEvent(changeEvent);
+                 // CraftBukkit end
+             }
++            // Paper start
++            if (this.isBlocking()) {
++                this.stopUsingItem();
++            }
++            // Paper end
+ 
+             return this;
+         }

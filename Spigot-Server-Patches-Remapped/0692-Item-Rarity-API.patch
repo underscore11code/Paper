@@ -1,0 +1,52 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Jake Potrebic <jake.m.potrebic@gmail.com>
+Date: Fri, 12 Mar 2021 17:09:42 -0800
+Subject: [PATCH] Item Rarity API
+
+
+diff --git a/src/main/java/net/minecraft/world/item/Item.java b/src/main/java/net/minecraft/world/item/Item.java
+index 1f35458f46b4334457f38cb78ac2782e97f3aa3f..057f2d28a2bbd06a60e9373dd853fee24127aa1a 100644
+--- a/src/main/java/net/minecraft/world/item/Item.java
++++ b/src/main/java/net/minecraft/world/item/Item.java
+@@ -45,7 +45,7 @@ public class Item implements ItemLike {
+     protected static final UUID BASE_ATTACK_SPEED_UUID = UUID.fromString("FA233E1C-4180-4865-B01B-BCCE9785ACA3");
+     protected static final Random random = new Random();
+     protected final CreativeModeTab category;
+-    private final Rarity rarity;
++    private final Rarity rarity; public final Rarity getItemRarity() { return rarity; } // Paper - OBFHELPER
+     private final int maxStackSize;
+     private final int maxDamage;
+     private final boolean isFireResistant;
+@@ -208,6 +208,7 @@ public class Item implements ItemLike {
+         return stack.isEnchanted();
+     }
+ 
++    public Rarity getItemStackRarity(ItemStack itemStack) { return getRarity(itemStack); } // Paper - OBFHELPER
+     public Rarity getRarity(ItemStack stack) {
+         if (!stack.isEnchanted()) {
+             return this.rarity;
+diff --git a/src/main/java/org/bukkit/craftbukkit/util/CraftMagicNumbers.java b/src/main/java/org/bukkit/craftbukkit/util/CraftMagicNumbers.java
+index 78fb128a0224073da4ffe87aa13876116c3b5dc5..e1f0936e4c55afdfa36f0fdc98e33e899d7a0e77 100644
+--- a/src/main/java/org/bukkit/craftbukkit/util/CraftMagicNumbers.java
++++ b/src/main/java/org/bukkit/craftbukkit/util/CraftMagicNumbers.java
+@@ -465,6 +465,20 @@ public final class CraftMagicNumbers implements UnsafeValues {
+         return net.minecraft.world.entity.Entity.nextEntityId();
+     }
+ 
++    @Override
++    public io.papermc.paper.inventory.ItemRarity getItemRarity(org.bukkit.Material material) {
++        Item item = getItem(material);
++        if (item == null) {
++            throw new IllegalArgumentException(material + " is not an item, and rarity does not apply to blocks");
++        }
++        return io.papermc.paper.inventory.ItemRarity.values()[item.getItemRarity().ordinal()];
++    }
++
++    @Override
++    public io.papermc.paper.inventory.ItemRarity getItemStackRarity(org.bukkit.inventory.ItemStack itemStack) {
++        return io.papermc.paper.inventory.ItemRarity.values()[getItem(itemStack.getType()).getItemStackRarity(CraftItemStack.asNMSCopy(itemStack)).ordinal()];
++    }
++
+     // Paper end
+ 
+     /**

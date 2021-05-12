@@ -1,0 +1,19 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Shane Freeder <theboyetronic@gmail.com>
+Date: Fri, 10 May 2019 18:38:19 +0100
+Subject: [PATCH] Fix CB call to changed postToMainThread method
+
+
+diff --git a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
+index 088c564bbd8e6e75f7152810876acb5769933457..73de0d622786a4e82213275e87834db1eef5f10f 100644
+--- a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
++++ b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
+@@ -443,7 +443,7 @@ public class ServerGamePacketListenerImpl implements ServerGamePacketListener {
+ 
+         this.connection.getClass();
+         // CraftBukkit - Don't wait
+-        minecraftserver.wrapRunnable(networkmanager::handleDisconnection);
++        minecraftserver.scheduleOnMain(networkmanager::handleDisconnection); // Paper
+     }
+ 
+     private <T> void filterTextPacket(T text, Consumer<T> consumer, BiFunction<TextFilter, T, CompletableFuture<Optional<T>>> backingFilterer) {

@@ -6,10 +6,10 @@ Subject: [PATCH] Book Size Limits
 Puts some limits on the size of books.
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index 36719c689a24c63e7d9a5b40f8c262c182a31b21..83bf428abd3be89e34cf42638bd1357a708ea0e3 100644
+index ad95c9a3d10d15d558e4bcca5be76a101a6a66ed..1ace481c1ffcf47ff11077eaa17501f3ee0071bd 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-@@ -369,6 +369,13 @@ public class PaperConfig {
+@@ -403,6 +403,13 @@ public class PaperConfig {
          }
      }
  
@@ -24,7 +24,7 @@ index 36719c689a24c63e7d9a5b40f8c262c182a31b21..83bf428abd3be89e34cf42638bd1357a
      private static void asyncChunks() {
          ConfigurationSection section;
 diff --git a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-index 95561ebe675957a9553ef0802c701ab0385dfbec..934c59f0f65b3751f74dab17b9f730d333d7a0fb 100644
+index 7a4bb44455ddf5f594e4262e1196b23c81e6ec30..237137713a07db847a37af3a79f3489ee25d6350 100644
 --- a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 @@ -1016,6 +1016,45 @@ public class ServerGamePacketListenerImpl implements ServerPlayerConnection, Ser

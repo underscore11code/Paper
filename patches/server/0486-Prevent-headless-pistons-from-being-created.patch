@@ -6,10 +6,10 @@ Subject: [PATCH] Prevent headless pistons from being created
 Prevent headless pistons from being created by explosions or tree/mushroom growth.
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index d404105573f3cda57e8eb6cad70d248d4e5e1bdf..ff855232e9b94d1b05d7abb8fd5ce243cc0cd324 100644
+index 73bc99cb67edb6f4a8b6fb77bd7adbd97e9b60fb..2f2d2c61582b6164091cfade0517457dd062f2bb 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-@@ -469,4 +469,10 @@ public class PaperConfig {
+@@ -503,4 +503,10 @@ public class PaperConfig {
              maxPlayerAutoSavePerTick = (playerAutoSaveRate == -1 || playerAutoSaveRate > 100) ? 10 : 20;
          }
      }

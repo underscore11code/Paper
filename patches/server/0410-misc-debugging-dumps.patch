@@ -29,7 +29,7 @@ index 0000000000000000000000000000000000000000..2d5494d2813b773e60ddba6790b750a9
 +    }
 +}
 diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
-index c39479a9dffd9f9d7a8a6f99b97fef47391de1cd..6d774f126e31e90d0845fc24b1ad7df5346c7cc9 100644
+index 4ed65f1371013fb91fe60a0e1501e222a6e9c508..abb640370da876a18a3eba952b19cfa9d0f73743 100644
 --- a/src/main/java/net/minecraft/server/MinecraftServer.java
 +++ b/src/main/java/net/minecraft/server/MinecraftServer.java
 @@ -915,6 +915,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
@@ -58,10 +58,10 @@ index c39479a9dffd9f9d7a8a6f99b97fef47391de1cd..6d774f126e31e90d0845fc24b1ad7df5
          this.running = false;
          if (flag) {
 diff --git a/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
-index 0af65f1698e4ee9d94724f19b0abd61c437f18f2..d21f45d983bf3047811d2d73f4a38deb108ac402 100644
+index dad22e0d8eec1b35dbfdca9ef732864782230db8..3b203f0f90a437cce2395276986bbbba1221ae51 100644
 --- a/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
-@@ -204,6 +204,11 @@ public class ServerLoginPacketListenerImpl implements ServerLoginPacketListener
+@@ -207,6 +207,11 @@ public class ServerLoginPacketListenerImpl implements ServerLoginPacketListener
              } catch (Exception exception) {
                  ServerLoginPacketListenerImpl.LOGGER.error("Couldn't place player in world", exception);
                  TranslatableComponent chatmessage = new TranslatableComponent("multiplayer.disconnect.invalid_player_data");
@@ -74,7 +74,7 @@ index 0af65f1698e4ee9d94724f19b0abd61c437f18f2..d21f45d983bf3047811d2d73f4a38deb
                  this.connection.send(new ClientboundDisconnectPacket(chatmessage));
                  this.connection.disconnect(chatmessage);
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index 0889a9a9eb78fb1030cb538f13a6c2526acbaa3f..c7f43771616310e8404b033b3cd99fb0a0024d69 100644
+index 9f257f3c4973888f79d028dac5773cf2fa5c4ed7..4d7636fdc59858383c30452f4043343ea738ef51 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 @@ -997,6 +997,7 @@ public final class CraftServer implements Server {

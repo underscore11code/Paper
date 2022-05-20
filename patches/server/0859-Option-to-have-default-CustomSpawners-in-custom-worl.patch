@@ -10,10 +10,10 @@ just looking at the LevelStem key, look at the DimensionType key which
 is one level below that. Defaults to off to keep vanilla behavior.
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index 66d360b2c4ae9e380ec6c452a263c04bd3aef4ff..1ac6cf51f2682d5eb14fe19646e79f6617d492dd 100644
+index f3f3f4856c60679d75308c8d13221bada0e8f410..4169af331963d806b925eb99970589bfc0e72312 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-@@ -683,4 +683,9 @@ public class PaperConfig {
+@@ -717,4 +717,9 @@ public class PaperConfig {
          globalMaxConcurrentChunkLoads = getDouble("settings.chunk-loading.global-max-concurrent-loads", 500.0);
          playerMaxChunkLoadRate = getDouble("settings.chunk-loading.player-max-chunk-load-rate", -1.0);
      }

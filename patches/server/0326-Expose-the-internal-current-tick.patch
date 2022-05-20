@@ -5,10 +5,10 @@ Subject: [PATCH] Expose the internal current tick
 
 
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index 56adf4f5a478a7f4ae1d29a18572be0fcf011fca..e9c8eb1ca3e39840b3791d814b66ad5b5919112f 100644
+index 4906b8e70f063e4848be84bde96ec762d09ee78f..c5a111af15abceda9a87a794ec181bd4abc43c6a 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-@@ -2636,5 +2636,10 @@ public final class CraftServer implements Server {
+@@ -2641,5 +2641,10 @@ public final class CraftServer implements Server {
          profile.getProperties().putAll(((CraftPlayer)player).getHandle().getGameProfile().getProperties());
          return new com.destroystokyo.paper.profile.CraftPlayerProfile(profile);
      }

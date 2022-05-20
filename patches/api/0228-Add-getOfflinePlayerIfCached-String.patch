@@ -5,10 +5,10 @@ Subject: [PATCH] Add getOfflinePlayerIfCached(String)
 
 
 diff --git a/src/main/java/org/bukkit/Bukkit.java b/src/main/java/org/bukkit/Bukkit.java
-index f9fdb1882a283e47604136a27d1c95266b988a37..8072924c977e0a23ee743ca8d613b9ea5de885fa 100644
+index 7721dac150b4545bd52f724b67633533f5091daa..f69a9c394dc4a7d787d5f9e16fb9878f30e2938b 100644
 --- a/src/main/java/org/bukkit/Bukkit.java
 +++ b/src/main/java/org/bukkit/Bukkit.java
-@@ -1188,6 +1188,27 @@ public final class Bukkit {
+@@ -1190,6 +1190,27 @@ public final class Bukkit {
          return server.getOfflinePlayer(name);
      }
  
@@ -37,10 +37,10 @@ index f9fdb1882a283e47604136a27d1c95266b988a37..8072924c977e0a23ee743ca8d613b9ea
       * Gets the player by the given UUID, regardless if they are offline or
       * online.
 diff --git a/src/main/java/org/bukkit/Server.java b/src/main/java/org/bukkit/Server.java
-index a7ba813396fab77bed292422f881b5a0952972fb..afed6bcf923166065ac9f63dd96191cd42eefcb9 100644
+index e150e36996ff112b92d29100d4eea63c8df983fa..c8b3bc3ec25e724affd0956e436c3c6ec08de06e 100644
 --- a/src/main/java/org/bukkit/Server.java
 +++ b/src/main/java/org/bukkit/Server.java
-@@ -1006,6 +1006,25 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi
+@@ -1008,6 +1008,25 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi
      @NotNull
      public OfflinePlayer getOfflinePlayer(@NotNull String name);
  

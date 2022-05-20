@@ -6,10 +6,10 @@ Subject: [PATCH] Player.setPlayerProfile API
 This can be useful for changing name or skins after a player has logged in.
 
 diff --git a/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
-index d3462cdc5eee37cedbff80f35d5b9c51e8dcd1da..5ebc450432805d52457b9f8ff1e2b1981bdd78e6 100644
+index 5732b4595534c1921cf32140547505f2ce29f435..c53b55f28f1989a1e21bdef36802cbc66a2ca53f 100644
 --- a/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
-@@ -344,11 +344,11 @@ public class ServerLoginPacketListenerImpl implements ServerLoginPacketListener
+@@ -343,11 +343,11 @@ public class ServerLoginPacketListenerImpl implements ServerLoginPacketListener
                          final org.bukkit.craftbukkit.CraftServer server = ServerLoginPacketListenerImpl.this.server.server;
  
                          // Paper start
@@ -24,7 +24,7 @@ index d3462cdc5eee37cedbff80f35d5b9c51e8dcd1da..5ebc450432805d52457b9f8ff1e2b198
                          playerName = gameProfile.getName();
                          uniqueId = gameProfile.getId();
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
-index 698a290a50a51d4e4c5b0282a300f130a9fe87e1..18e1907551978b541c82a07cdc30fd254484812f 100644
+index c13ed6118f84b0b10ac285ca8409e96e873e25e2..11a0d21575a860634028e79e786b9aab4cb4855b 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
 @@ -77,6 +77,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;

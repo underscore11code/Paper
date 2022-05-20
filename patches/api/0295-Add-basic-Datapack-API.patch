@@ -70,10 +70,10 @@ index 0000000000000000000000000000000000000000..58f78d5e91beacaf710f62461cf869f7
 +
 +}
 diff --git a/src/main/java/org/bukkit/Bukkit.java b/src/main/java/org/bukkit/Bukkit.java
-index c7fe6865e1a14116b61ae69c26d4af2d8af11955..64fc7215eb93b50173ed716c1dde1a151a0edf6e 100644
+index c97ff5b0815efd6a18cbe3286fbd1f5d230f2768..813e7d63518fb398093f15344c6640b373916fb5 100644
 --- a/src/main/java/org/bukkit/Bukkit.java
 +++ b/src/main/java/org/bukkit/Bukkit.java
-@@ -2294,6 +2294,14 @@ public final class Bukkit {
+@@ -2307,6 +2307,14 @@ public final class Bukkit {
      public static com.destroystokyo.paper.entity.ai.MobGoals getMobGoals() {
          return server.getMobGoals();
      }
@@ -89,10 +89,10 @@ index c7fe6865e1a14116b61ae69c26d4af2d8af11955..64fc7215eb93b50173ed716c1dde1a15
  
      @NotNull
 diff --git a/src/main/java/org/bukkit/Server.java b/src/main/java/org/bukkit/Server.java
-index 181493def187f72b6ff89c3849598428f35d31f3..2409c0023f90689399c8ceba179b800156d16eea 100644
+index 57aea8c61d57579ce99537e5cd0d7f7168b05df7..c79f56fa597b6cdcb1918c5eaf4549a04c7ba575 100644
 --- a/src/main/java/org/bukkit/Server.java
 +++ b/src/main/java/org/bukkit/Server.java
-@@ -2013,5 +2013,11 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi
+@@ -2024,5 +2024,11 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi
       */
      @NotNull
      com.destroystokyo.paper.entity.ai.MobGoals getMobGoals();

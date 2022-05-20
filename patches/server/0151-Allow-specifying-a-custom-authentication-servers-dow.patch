@@ -6,7 +6,7 @@ Subject: [PATCH] Allow specifying a custom "authentication servers down" kick
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index bbf5dae44b52941452c65ce4d0820172f0f03f3d..13cd1da1277615a695f5bf92e2f7005dd99a534e 100644
+index b017a60421c11ad80623ffc60288daf3e001af8a..3fafa8419f765ca0c5be9a6262b09739934f4722 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
 @@ -1,5 +1,6 @@
@@ -16,28 +16,51 @@ index bbf5dae44b52941452c65ce4d0820172f0f03f3d..13cd1da1277615a695f5bf92e2f7005d
  import com.google.common.base.Throwables;
  
  import java.io.File;
-@@ -285,4 +286,9 @@ public class PaperConfig {
+@@ -298,4 +299,18 @@ public class PaperConfig {
      private static void suggestPlayersWhenNull() {
          suggestPlayersWhenNullTabCompletions = getBoolean("settings.suggest-player-names-when-null-tab-completions", suggestPlayersWhenNullTabCompletions);
      }
 +
-+    public static String authenticationServersDownKickMessage = ""; // empty = use translatable message
++    public static Component authenticationServersDownKickMessage = Component.translatable("multiplayer.disconnect.authservers_down");
++    private static final String defaultAuthenticationServersDownKickMessage = "<lang:multiplayer.disconnect.authservers_down>";
 +    private static void authenticationServersDownKickMessage() {
-+        authenticationServersDownKickMessage = Strings.emptyToNull(getString("messages.kick.authentication-servers-down", authenticationServersDownKickMessage));
++        MiniMessage miniMessage = MiniMessage.miniMessage();
++        if (version < 28) {
++            String val = getString("messages.kick.authentication-servers-down", defaultAuthenticationServersDownKickMessage);
++            // Config 27 and older defaulted to "" which used the localized message internally
++            if (val.equals("")) val = defaultAuthenticationServersDownKickMessage;
++            authenticationServersDownKickMessage = LegacyComponentSerializer.legacyAmpersand().deserialize(val);
++            set("messages.kick.authentication-servers-down", miniMessage.serialize(authenticationServersDownKickMessage));
++        }
++        authenticationServersDownKickMessage = miniMessage.deserialize(getString("messagees.kick.authentication-servers-down", defaultAuthenticationServersDownKickMessage));
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
-index 03dc5ae09c46ad7be8e444211728a8418f594733..6834c67b38f0679497bef4b2174817d9688cbbd8 100644
+index 03dc5ae09c46ad7be8e444211728a8418f594733..c8f8296d32585efae1af080fe125d49bd29bb54a 100644
 --- a/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
-@@ -304,6 +304,10 @@ public class ServerLoginPacketListenerImpl implements ServerLoginPacketListener
+@@ -1,5 +1,6 @@
+ package net.minecraft.server.network;
+ 
++import com.destroystokyo.paper.PaperConfig;
+ import com.mojang.authlib.GameProfile;
+ import com.mojang.authlib.exceptions.AuthenticationUnavailableException;
+ import com.mojang.logging.LogUtils;
+@@ -15,6 +16,8 @@ import java.util.concurrent.atomic.AtomicInteger;
+ import javax.annotation.Nullable;
+ import javax.crypto.Cipher;
+ import javax.crypto.SecretKey;
++
++import io.papermc.paper.adventure.PaperAdventure;
+ import net.minecraft.DefaultUncaughtExceptionHandler;
+ import net.minecraft.network.Connection;
+ import net.minecraft.network.chat.Component;
+@@ -304,7 +307,7 @@ public class ServerLoginPacketListenerImpl implements ServerLoginPacketListener
                          ServerLoginPacketListenerImpl.this.gameProfile = ServerLoginPacketListenerImpl.this.createFakeProfile(gameprofile);
                          ServerLoginPacketListenerImpl.this.state = ServerLoginPacketListenerImpl.State.READY_TO_ACCEPT;
                      } else {
-+                            // Paper start
-+                            if (com.destroystokyo.paper.PaperConfig.authenticationServersDownKickMessage != null) {
-+                                ServerLoginPacketListenerImpl.this.disconnect(new TextComponent(com.destroystokyo.paper.PaperConfig.authenticationServersDownKickMessage));
-+                            } else // Paper end
-                         ServerLoginPacketListenerImpl.this.disconnect(new TranslatableComponent("multiplayer.disconnect.authservers_down"));
+-                        ServerLoginPacketListenerImpl.this.disconnect(new TranslatableComponent("multiplayer.disconnect.authservers_down"));
++                        ServerLoginPacketListenerImpl.this.disconnect(PaperAdventure.asVanilla(PaperConfig.authenticationServersDownKickMessage)); // Paper
                          ServerLoginPacketListenerImpl.LOGGER.error("Couldn't verify username because servers are unavailable");
                      }
+                     // CraftBukkit start - catch all exceptions

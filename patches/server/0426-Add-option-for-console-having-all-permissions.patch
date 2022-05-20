@@ -5,10 +5,10 @@ Subject: [PATCH] Add option for console having all permissions
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index 045a49da7c17e48534b3bd5b7aa3968963681e6c..5dc7e897fdb2a572b800eb34c40961cdfa3c0309 100644
+index 3689a0f57135b7f047d5461f5c5dae42adda1b2d..eb00a1bea7051bc673437fc13b27e6f1f7bdbb25 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-@@ -446,4 +446,9 @@ public class PaperConfig {
+@@ -480,4 +480,9 @@ public class PaperConfig {
          config.set("settings.unsupported-settings.allow-permanent-block-break-exploits-readme", "This setting controls if players should be able to break bedrock, end portals and other intended to be permanent blocks.");
          allowBlockPermanentBreakingExploits = getBoolean("settings.unsupported-settings.allow-permanent-block-break-exploits", allowBlockPermanentBreakingExploits);
      }

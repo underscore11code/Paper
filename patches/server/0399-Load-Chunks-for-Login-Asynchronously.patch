@@ -5,7 +5,7 @@ Subject: [PATCH] Load Chunks for Login Asynchronously
 
 
 diff --git a/src/main/java/net/minecraft/server/level/ServerPlayer.java b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-index 95ed3dba34539d07800bd7e34571471d6818e58e..d00dfcb2005b07f50c3a7a8a8268c5bc8305f333 100644
+index 318bf4e1aa11798a80ae1779d744545aaa8aa6ee..f8913f10e3e24c4da7c251bc4bc0ab0820807f57 100644
 --- a/src/main/java/net/minecraft/server/level/ServerPlayer.java
 +++ b/src/main/java/net/minecraft/server/level/ServerPlayer.java
 @@ -173,6 +173,7 @@ public class ServerPlayer extends Player {
@@ -37,7 +37,7 @@ index be677d437d17b74c6188ce1bd5fc6fdc228fd92f..78fbb4c3e52e900956ae0811aaf934c8
      public static final TicketType<ChunkPos> UNKNOWN = TicketType.create("unknown", Comparator.comparingLong(ChunkPos::toLong), 1);
      public static final TicketType<Unit> PLUGIN = TicketType.create("plugin", (a, b) -> 0); // CraftBukkit
 diff --git a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-index 0a41746f630442ed411e0d0c5efe90959191ae99..33d5538c17272d69cdc6207de9fb32fb1bc304c2 100644
+index e424e29ecd90f17e84d37105f8fdde85df406813..b174bfdd8457d5e1a9d8c65c542a544639488ddf 100644
 --- a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 @@ -220,6 +220,7 @@ public class ServerGamePacketListenerImpl implements ServerPlayerConnection, Ser
@@ -74,10 +74,10 @@ index 0a41746f630442ed411e0d0c5efe90959191ae99..33d5538c17272d69cdc6207de9fb32fb
          this.server.getProfiler().push("keepAlive");
          // Paper Start - give clients a longer time to respond to pings as per pre 1.12.2 timings
 diff --git a/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
-index 4c06e62e967f28eb844d74237948834e61daeab0..0af65f1698e4ee9d94724f19b0abd61c437f18f2 100644
+index 60a748e0dfe68c4636addd5466bfd226e0f52e74..dad22e0d8eec1b35dbfdca9ef732864782230db8 100644
 --- a/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
-@@ -84,7 +84,7 @@ public class ServerLoginPacketListenerImpl implements ServerLoginPacketListener
+@@ -87,7 +87,7 @@ public class ServerLoginPacketListenerImpl implements ServerLoginPacketListener
              }
              // Paper end
          } else if (this.state == ServerLoginPacketListenerImpl.State.DELAY_ACCEPT) {
@@ -86,7 +86,7 @@ index 4c06e62e967f28eb844d74237948834e61daeab0..0af65f1698e4ee9d94724f19b0abd61c
  
              if (entityplayer == null) {
                  this.state = ServerLoginPacketListenerImpl.State.READY_TO_ACCEPT;
-@@ -190,7 +190,7 @@ public class ServerLoginPacketListenerImpl implements ServerLoginPacketListener
+@@ -193,7 +193,7 @@ public class ServerLoginPacketListenerImpl implements ServerLoginPacketListener
              }
  
              this.connection.send(new ClientboundGameProfilePacket(this.gameProfile));
@@ -96,7 +96,7 @@ index 4c06e62e967f28eb844d74237948834e61daeab0..0af65f1698e4ee9d94724f19b0abd61c
              try {
                  ServerPlayer entityplayer1 = this.server.getPlayerList().getPlayerForLogin(this.gameProfile, s); // CraftBukkit - add player reference
 diff --git a/src/main/java/net/minecraft/server/players/PlayerList.java b/src/main/java/net/minecraft/server/players/PlayerList.java
-index e7904870da5134b397f93c4de29d804775830947..e9470af5a168f54c78383553ca634e77ae2a4cf5 100644
+index c8f0bed184a0524b18385c6ef44839b90b3549dc..4ccb008508a008d782f0c639663b423f1a6dfdef 100644
 --- a/src/main/java/net/minecraft/server/players/PlayerList.java
 +++ b/src/main/java/net/minecraft/server/players/PlayerList.java
 @@ -40,6 +40,7 @@ import net.minecraft.network.protocol.Packet;

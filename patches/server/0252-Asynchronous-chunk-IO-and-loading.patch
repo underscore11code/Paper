@@ -161,7 +161,7 @@ index 0fda52841b5e1643efeda92106124998abc4e0aa..fe79c0add4f7cb18d487c5bb9415c40c
  
      public static Timing getTickList(ServerLevel worldserver, String timingsType) {
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index 924b890d34c113ce804244dbb6635ff737f974b5..5def23f470c9737884bdf7551e426faf887bca9c 100644
+index 72e9c8392c9a25370e1e403bd59d659c62e7a441..911e423e07979695f2da5012559d6b45e8bfb16f 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
 @@ -1,5 +1,6 @@
@@ -171,7 +171,7 @@ index 924b890d34c113ce804244dbb6635ff737f974b5..5def23f470c9737884bdf7551e426faf
  import com.google.common.base.Strings;
  import com.google.common.base.Throwables;
  
-@@ -341,4 +342,58 @@ public class PaperConfig {
+@@ -363,4 +364,58 @@ public class PaperConfig {
          }
          tabSpamLimit = getInt("settings.spam-limiter.tab-spam-limit", tabSpamLimit);
      }
@@ -2318,7 +2318,7 @@ index 8f5784ed4df46f3c7d4c6b4ff76ad839d436be1f..6a006f22d33491be4413fb64649ba9f6
                  DedicatedServer dedicatedserver1 = new DedicatedServer(optionset, config.get(), ops.get(), thread, convertable_conversionsession, resourcepackrepository, worldstem, dedicatedserversettings, DataFixers.getDataFixer(), minecraftsessionservice, gameprofilerepository, usercache, LoggerChunkProgressListener::new);
  
 diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
-index d6e6bc73f9bbcae99126876a9abdd3468d6c2a7f..785df5ec8a5a4e307149edd5ccf7db75f7edb1fc 100644
+index 4f070d2a7ff5dfe9890e79c30911a1fe1ec9983b..311a51f91f6f4572d56dcd700c652b2690239f75 100644
 --- a/src/main/java/net/minecraft/server/MinecraftServer.java
 +++ b/src/main/java/net/minecraft/server/MinecraftServer.java
 @@ -996,7 +996,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
@@ -2866,7 +2866,7 @@ index 0d536d72ac918fbd403397ff369d10143ee9c204..be677d437d17b74c6188ce1bd5fc6fdc
      private final String name;
      private final Comparator<T> comparator;
 diff --git a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-index 4cd752ca349fb3cfd0d28f3a993531372e688d79..a7ee0d00e2688bf84efd25c1c4d679213a783b1b 100644
+index be201267110d8cebb8d4c657f3b40191b38b4819..d8cc0680c73da2e594cb091138fc4626e4eb60ec 100644
 --- a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 @@ -717,6 +717,13 @@ public class ServerGamePacketListenerImpl implements ServerPlayerConnection, Ser

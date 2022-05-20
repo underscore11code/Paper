@@ -5,10 +5,10 @@ Subject: [PATCH] Expose game version
 
 
 diff --git a/src/main/java/org/bukkit/Bukkit.java b/src/main/java/org/bukkit/Bukkit.java
-index 13d8d2d955ada2765b6c6773f77a5407c86cc390..9bcde6496876bf184654c829e73b730b2e70bba6 100644
+index d984d4b147fbf93afb401a59b079945ead8f1f12..00c98877b25570e5e470728e5f31ac3224b2bc94 100644
 --- a/src/main/java/org/bukkit/Bukkit.java
 +++ b/src/main/java/org/bukkit/Bukkit.java
-@@ -135,6 +135,18 @@ public final class Bukkit {
+@@ -137,6 +137,18 @@ public final class Bukkit {
          return server.getBukkitVersion();
      }
  
@@ -28,10 +28,10 @@ index 13d8d2d955ada2765b6c6773f77a5407c86cc390..9bcde6496876bf184654c829e73b730b
       * Gets a view of all currently logged in players. This {@linkplain
       * Collections#unmodifiableCollection(Collection) view} is a reused
 diff --git a/src/main/java/org/bukkit/Server.java b/src/main/java/org/bukkit/Server.java
-index 5cd3a9a6066b01525c0d3a54e852e876535f37d3..5cd733705f47f9fc77d1b10065d93a9b0356f5ea 100644
+index 0dd73ee58a22991d989cde4e8e5b5dc70e539ee8..1481b98a445ef63110d54caf1abf21bd9eae5a3a 100644
 --- a/src/main/java/org/bukkit/Server.java
 +++ b/src/main/java/org/bukkit/Server.java
-@@ -112,6 +112,16 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi
+@@ -114,6 +114,16 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi
      @NotNull
      public String getBukkitVersion();
  

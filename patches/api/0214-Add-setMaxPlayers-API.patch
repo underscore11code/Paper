@@ -5,10 +5,10 @@ Subject: [PATCH] Add #setMaxPlayers API
 
 
 diff --git a/src/main/java/org/bukkit/Bukkit.java b/src/main/java/org/bukkit/Bukkit.java
-index d9581a6270df9e3507cf60a9049ef59e7ff464af..cf453476006563d8f9c165809c89d73089a84acc 100644
+index f55bea67192878a9c10976452a8a8eda02e6e32e..7721dac150b4545bd52f724b67633533f5091daa 100644
 --- a/src/main/java/org/bukkit/Bukkit.java
 +++ b/src/main/java/org/bukkit/Bukkit.java
-@@ -188,6 +188,17 @@ public final class Bukkit {
+@@ -190,6 +190,17 @@ public final class Bukkit {
          return server.getMaxPlayers();
      }
  
@@ -27,10 +27,10 @@ index d9581a6270df9e3507cf60a9049ef59e7ff464af..cf453476006563d8f9c165809c89d730
       * Get the game port that the server runs on.
       *
 diff --git a/src/main/java/org/bukkit/Server.java b/src/main/java/org/bukkit/Server.java
-index b78ccbf832199fe84b351c7467a3d9be39f2f819..8f6878d2b6a43ec90f5011df6530083bdf6166cb 100644
+index 731f02c21016ffdad8ba59a176248c965c88ed62..e150e36996ff112b92d29100d4eea63c8df983fa 100644
 --- a/src/main/java/org/bukkit/Server.java
 +++ b/src/main/java/org/bukkit/Server.java
-@@ -159,6 +159,15 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi
+@@ -161,6 +161,15 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi
       */
      public int getMaxPlayers();
  

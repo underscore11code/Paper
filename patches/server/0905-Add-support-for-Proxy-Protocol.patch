@@ -5,10 +5,10 @@ Subject: [PATCH] Add support for Proxy Protocol
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index 1ac6cf51f2682d5eb14fe19646e79f6617d492dd..fafbebbb5e8c1a381b673f97f1fa210687b52823 100644
+index 4169af331963d806b925eb99970589bfc0e72312..4be3d60c8caf14822063d7638d0c4b089302bf8e 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-@@ -688,4 +688,9 @@ public class PaperConfig {
+@@ -722,4 +722,9 @@ public class PaperConfig {
      private static void useDimensionTypeForCustomSpawners() {
          useDimensionTypeForCustomSpawners = getBoolean("settings.use-dimension-type-for-custom-spawners", false);
      }

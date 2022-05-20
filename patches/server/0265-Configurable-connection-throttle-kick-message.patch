@@ -5,23 +5,29 @@ Subject: [PATCH] Configurable connection throttle kick message
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index 0e4cb05e78ff78bce6ca42fd30b6f9ff42f87f7d..b0b3820e9609b301f92545c87289279df975424e 100644
+index 911e423e07979695f2da5012559d6b45e8bfb16f..720c35565335db4d6ed4e30f955265f048e1215f 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-@@ -294,6 +294,11 @@ public class PaperConfig {
-         authenticationServersDownKickMessage = Strings.emptyToNull(getString("messages.kick.authentication-servers-down", authenticationServersDownKickMessage));
+@@ -316,6 +316,17 @@ public class PaperConfig {
+         authenticationServersDownKickMessage = miniMessage.deserialize(getString("messagees.kick.authentication-servers-down", defaultAuthenticationServersDownKickMessage));
      }
  
-+    public static String connectionThrottleKickMessage = "Connection throttled! Please wait before reconnecting.";
++    private static final String defaultConnectionThrottleKickMessage = "Connection throttled! Please wait before reconnecting.";
++    public static Component connectionThrottleKickMessage = Component.text(defaultConnectionThrottleKickMessage);
 +    private static void connectionThrottleKickMessage() {
-+        connectionThrottleKickMessage = getString("messages.kick.connection-throttle", connectionThrottleKickMessage);
++        MiniMessage miniMessage = MiniMessage.miniMessage();
++        if (version < 28) {
++            authenticationServersDownKickMessage = LegacyComponentSerializer.legacyAmpersand().deserialize(getString("messages.kick.connection-throttle", defaultConnectionThrottleKickMessage));
++            set("messages.kick.connection-throttle", miniMessage.serialize(authenticationServersDownKickMessage));
++        }
++        connectionThrottleKickMessage = miniMessage.deserialize(getString("messages.kick.connection-throttle", defaultConnectionThrottleKickMessage));
 +    }
 +
      private static void savePlayerData() {
          Object val = config.get("settings.save-player-data");
          if (val instanceof Boolean) {
 diff --git a/src/main/java/net/minecraft/server/network/ServerHandshakePacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerHandshakePacketListenerImpl.java
-index a95b2ee0e80832f786bdb8f3d0bc00cbfae26fd4..86f99fbe3eb7a6c7ef288d7bff1d653df6f34790 100644
+index a95b2ee0e80832f786bdb8f3d0bc00cbfae26fd4..7623f4204c3c7de67c8e2ff38f0fd0bc818a07b2 100644
 --- a/src/main/java/net/minecraft/server/network/ServerHandshakePacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerHandshakePacketListenerImpl.java
 @@ -50,7 +50,7 @@ public class ServerHandshakePacketListenerImpl implements ServerHandshakePacketL
@@ -29,7 +35,7 @@ index a95b2ee0e80832f786bdb8f3d0bc00cbfae26fd4..86f99fbe3eb7a6c7ef288d7bff1d653d
                          if (ServerHandshakePacketListenerImpl.throttleTracker.containsKey(address) && !"127.0.0.1".equals(address.getHostAddress()) && currentTime - ServerHandshakePacketListenerImpl.throttleTracker.get(address) < connectionThrottle) {
                              ServerHandshakePacketListenerImpl.throttleTracker.put(address, currentTime);
 -                            TranslatableComponent chatmessage = new TranslatableComponent("Connection throttled! Please wait before reconnecting.");
-+                            TranslatableComponent chatmessage = new TranslatableComponent(com.destroystokyo.paper.PaperConfig.connectionThrottleKickMessage); // Paper - Configurable connection throttle kick message
++                            Component chatmessage = io.papermc.paper.adventure.PaperAdventure.asVanilla(com.destroystokyo.paper.PaperConfig.connectionThrottleKickMessage); // Paper - Configurable connection throttle kick message
                              this.connection.send(new ClientboundLoginDisconnectPacket(chatmessage));
                              this.connection.disconnect(chatmessage);
                              return;

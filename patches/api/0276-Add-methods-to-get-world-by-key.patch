@@ -5,10 +5,10 @@ Subject: [PATCH] Add methods to get world by key
 
 
 diff --git a/src/main/java/org/bukkit/Bukkit.java b/src/main/java/org/bukkit/Bukkit.java
-index 8072924c977e0a23ee743ca8d613b9ea5de885fa..c7fe6865e1a14116b61ae69c26d4af2d8af11955 100644
+index f69a9c394dc4a7d787d5f9e16fb9878f30e2938b..c97ff5b0815efd6a18cbe3286fbd1f5d230f2768 100644
 --- a/src/main/java/org/bukkit/Bukkit.java
 +++ b/src/main/java/org/bukkit/Bukkit.java
-@@ -791,6 +791,18 @@ public final class Bukkit {
+@@ -793,6 +793,18 @@ public final class Bukkit {
      public static World getWorld(@NotNull UUID uid) {
          return server.getWorld(uid);
      }
@@ -28,10 +28,10 @@ index 8072924c977e0a23ee743ca8d613b9ea5de885fa..c7fe6865e1a14116b61ae69c26d4af2d
      /**
       * Create a new virtual {@link WorldBorder}.
 diff --git a/src/main/java/org/bukkit/Server.java b/src/main/java/org/bukkit/Server.java
-index afed6bcf923166065ac9f63dd96191cd42eefcb9..181493def187f72b6ff89c3849598428f35d31f3 100644
+index c8b3bc3ec25e724affd0956e436c3c6ec08de06e..57aea8c61d57579ce99537e5cd0d7f7168b05df7 100644
 --- a/src/main/java/org/bukkit/Server.java
 +++ b/src/main/java/org/bukkit/Server.java
-@@ -670,6 +670,17 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi
+@@ -672,6 +672,17 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi
      @Nullable
      public World getWorld(@NotNull UUID uid);
  

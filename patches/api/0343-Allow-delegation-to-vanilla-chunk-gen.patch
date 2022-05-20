@@ -5,10 +5,10 @@ Subject: [PATCH] Allow delegation to vanilla chunk gen
 
 
 diff --git a/src/main/java/org/bukkit/Bukkit.java b/src/main/java/org/bukkit/Bukkit.java
-index 746e988f67e1d3218556e52ad70a4f5133d1bc1e..6f9ffbb907b7f14ae2cfc3cae45ea277c00d461c 100644
+index 615cc54c0b7cbcca2e69eb4687d0e23ff1b441b8..8bb4b95489ac1da23f869f416da91b4efe9b9602 100644
 --- a/src/main/java/org/bukkit/Bukkit.java
 +++ b/src/main/java/org/bukkit/Bukkit.java
-@@ -1861,6 +1861,24 @@ public final class Bukkit {
+@@ -1863,6 +1863,24 @@ public final class Bukkit {
          return server.createChunkData(world);
      }
  
@@ -34,10 +34,10 @@ index 746e988f67e1d3218556e52ad70a4f5133d1bc1e..6f9ffbb907b7f14ae2cfc3cae45ea277
       * Creates a boss bar instance to display to players. The progress
       * defaults to 1.0
 diff --git a/src/main/java/org/bukkit/Server.java b/src/main/java/org/bukkit/Server.java
-index 2409c0023f90689399c8ceba179b800156d16eea..64e4667efbf60204076ef32d64aa3a76c399df05 100644
+index c79f56fa597b6cdcb1918c5eaf4549a04c7ba575..6141ebe7f2ac7bc531a5409d986d8c4c622e5a74 100644
 --- a/src/main/java/org/bukkit/Server.java
 +++ b/src/main/java/org/bukkit/Server.java
-@@ -1564,6 +1564,22 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi
+@@ -1566,6 +1566,22 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi
      @NotNull
      public ChunkGenerator.ChunkData createChunkData(@NotNull World world);
  

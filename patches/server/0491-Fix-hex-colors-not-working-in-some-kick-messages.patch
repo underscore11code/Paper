@@ -5,18 +5,9 @@ Subject: [PATCH] Fix hex colors not working in some kick messages
 
 
 diff --git a/src/main/java/net/minecraft/server/network/ServerHandshakePacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerHandshakePacketListenerImpl.java
-index 86f99fbe3eb7a6c7ef288d7bff1d653df6f34790..8060d6461835d5b5b4429e9b280d08eae4e435e9 100644
+index 7623f4204c3c7de67c8e2ff38f0fd0bc818a07b2..1b180d2e41f44d066499f65417739875641c372c 100644
 --- a/src/main/java/net/minecraft/server/network/ServerHandshakePacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerHandshakePacketListenerImpl.java
-@@ -50,7 +50,7 @@ public class ServerHandshakePacketListenerImpl implements ServerHandshakePacketL
-                     synchronized (ServerHandshakePacketListenerImpl.throttleTracker) {
-                         if (ServerHandshakePacketListenerImpl.throttleTracker.containsKey(address) && !"127.0.0.1".equals(address.getHostAddress()) && currentTime - ServerHandshakePacketListenerImpl.throttleTracker.get(address) < connectionThrottle) {
-                             ServerHandshakePacketListenerImpl.throttleTracker.put(address, currentTime);
--                            TranslatableComponent chatmessage = new TranslatableComponent(com.destroystokyo.paper.PaperConfig.connectionThrottleKickMessage); // Paper - Configurable connection throttle kick message
-+                            Component chatmessage = org.bukkit.craftbukkit.util.CraftChatMessage.fromString(com.destroystokyo.paper.PaperConfig.connectionThrottleKickMessage, true)[0]; // Paper - Configurable connection throttle kick message // Paper - Fix hex colors not working in some kick messages
-                             this.connection.send(new ClientboundLoginDisconnectPacket(chatmessage));
-                             this.connection.disconnect(chatmessage);
-                             return;
 @@ -76,12 +76,12 @@ public class ServerHandshakePacketListenerImpl implements ServerHandshakePacketL
                  }
                  // CraftBukkit end
@@ -34,10 +25,10 @@ index 86f99fbe3eb7a6c7ef288d7bff1d653df6f34790..8060d6461835d5b5b4429e9b280d08ea
  
                      this.connection.send(new ClientboundLoginDisconnectPacket(chatmessage));
 diff --git a/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
-index d21f45d983bf3047811d2d73f4a38deb108ac402..ab21f25a3eb0575d08aeac717ba2b74160f54fa9 100644
+index 3b203f0f90a437cce2395276986bbbba1221ae51..c546e64d766cead1752598cca372fc00214fbcfe 100644
 --- a/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
-@@ -102,14 +102,7 @@ public class ServerLoginPacketListenerImpl implements ServerLoginPacketListener
+@@ -105,14 +105,7 @@ public class ServerLoginPacketListenerImpl implements ServerLoginPacketListener
      // CraftBukkit start
      @Deprecated
      public void disconnect(String s) {

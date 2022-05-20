@@ -7,12 +7,12 @@ This patch contains config migrations for when upstream adds options
 which Paper already had.
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index 13cd1da1277615a695f5bf92e2f7005dd99a534e..fddc40fc7b6bfbdab3ab54dae273a0d99198da5f 100644
+index 3fafa8419f765ca0c5be9a6262b09739934f4722..9ea3d67ee4945dff649c47c35cda9b7f150bc02a 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-@@ -291,4 +291,23 @@ public class PaperConfig {
-     private static void authenticationServersDownKickMessage() {
-         authenticationServersDownKickMessage = Strings.emptyToNull(getString("messages.kick.authentication-servers-down", authenticationServersDownKickMessage));
+@@ -313,4 +313,23 @@ public class PaperConfig {
+         }
+         authenticationServersDownKickMessage = miniMessage.deserialize(getString("messagees.kick.authentication-servers-down", defaultAuthenticationServersDownKickMessage));
      }
 +
 +    private static void savePlayerData() {

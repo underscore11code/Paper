@@ -5,10 +5,10 @@ Subject: [PATCH] Expose the internal current tick
 
 
 diff --git a/src/main/java/org/bukkit/Bukkit.java b/src/main/java/org/bukkit/Bukkit.java
-index b4256e2c66e3f578a4499dc1fff50f213898b96b..6a2cf46d54ae6c93e95e78c5fa98e6aef48c168f 100644
+index 3a1f3b28a8977e2c3f9e7d04ab684f1df61ac2bc..36e3e14c3ee5b8593162fd12f90d4874742f5f3b 100644
 --- a/src/main/java/org/bukkit/Bukkit.java
 +++ b/src/main/java/org/bukkit/Bukkit.java
-@@ -2196,6 +2196,10 @@ public final class Bukkit {
+@@ -2209,6 +2209,10 @@ public final class Bukkit {
      public static com.destroystokyo.paper.profile.PlayerProfile createProfileExact(@Nullable UUID uuid, @Nullable String name) {
          return server.createProfileExact(uuid, name);
      }
@@ -20,10 +20,10 @@ index b4256e2c66e3f578a4499dc1fff50f213898b96b..6a2cf46d54ae6c93e95e78c5fa98e6ae
  
      @NotNull
 diff --git a/src/main/java/org/bukkit/Server.java b/src/main/java/org/bukkit/Server.java
-index 102ce4e488d5b6fd4a19766e9fa02d29075b2c33..ad1d73940908f4f20a4944e81b186739fded20ab 100644
+index 8f257f0b73f47d2b01ec6758ae742014564bbd95..e06c9817cf2a0bf4aa7e49ed657d77ca35879a15 100644
 --- a/src/main/java/org/bukkit/Server.java
 +++ b/src/main/java/org/bukkit/Server.java
-@@ -1927,5 +1927,12 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi
+@@ -1938,5 +1938,12 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi
       */
      @NotNull
      com.destroystokyo.paper.profile.PlayerProfile createProfileExact(@Nullable UUID uuid, @Nullable String name);

@@ -80,10 +80,10 @@ index 1d7bbff8711bfb991046ecc66dce328a5f643c2d..2ea3af07a18094d0bc7e4898c0bb97ec
      exclude("org/bukkit/craftbukkit/inventory/ItemStack*Test.class")
  }
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index fda5a623ec6bba0ed4d230415f7b9779ee2e8ccf..af43c63df3c82e910b77afd2a8899b8e6fc6db6d 100644
+index 9a567af23427497f04309f2f83b0cffa24d34534..e92733b92838b07cef19948b2ad9e2369ce97720 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-@@ -430,4 +430,9 @@ public class PaperConfig {
+@@ -464,4 +464,9 @@ public class PaperConfig {
              log("Async Chunks: Enabled - Chunks will be loaded much faster, without lag.");
          }
      }

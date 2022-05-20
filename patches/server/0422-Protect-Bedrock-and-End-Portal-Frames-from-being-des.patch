@@ -13,10 +13,10 @@ A config is provided if you rather let players use these exploits, and let
 them destroy the worlds End Portals and get on top of the nether easy.
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index af43c63df3c82e910b77afd2a8899b8e6fc6db6d..045a49da7c17e48534b3bd5b7aa3968963681e6c 100644
+index e92733b92838b07cef19948b2ad9e2369ce97720..3689a0f57135b7f047d5461f5c5dae42adda1b2d 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-@@ -435,4 +435,15 @@ public class PaperConfig {
+@@ -469,4 +469,15 @@ public class PaperConfig {
      private static void loggerSettings() {
          deobfuscateStacktraces = getBoolean("settings.loggers.deobfuscate-stacktraces", deobfuscateStacktraces);
      }

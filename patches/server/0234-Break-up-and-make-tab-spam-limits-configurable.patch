@@ -22,10 +22,10 @@ to take the burden of this into their own hand without having to rely on
 plugins doing unsafe things.
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index 114a65963b65597ff915ec3a0d75bb78f33bd774..d654affc5565622cfabde9b838aa2b40e4e122bb 100644
+index ac717b6b86eca0c73f699ee369a093bdb82819f6..566ce0dbff9ee8bf43f8d40c6df3a81df6ab6061 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-@@ -318,4 +318,18 @@ public class PaperConfig {
+@@ -340,4 +340,18 @@ public class PaperConfig {
              Bukkit.getLogger().log(Level.INFO, "Using Aikar's Alternative Luck Formula to apply Luck attribute to all loot pool calculations. See https://luckformula.emc.gs");
          }
      }
@@ -45,7 +45,7 @@ index 114a65963b65597ff915ec3a0d75bb78f33bd774..d654affc5565622cfabde9b838aa2b40
 +    }
  }
 diff --git a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-index 76628de17e8fb374801b5b9e25f7ff6bd1465c30..4cd752ca349fb3cfd0d28f3a993531372e688d79 100644
+index e2da92d30ee405875dd711c1c118a97d2532b38e..be201267110d8cebb8d4c657f3b40191b38b4819 100644
 --- a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 @@ -227,6 +227,7 @@ public class ServerGamePacketListenerImpl implements ServerPlayerConnection, Ser

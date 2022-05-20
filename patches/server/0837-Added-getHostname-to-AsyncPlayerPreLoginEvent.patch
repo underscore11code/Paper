@@ -5,10 +5,10 @@ Subject: [PATCH] Added getHostname to AsyncPlayerPreLoginEvent
 
 
 diff --git a/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
-index 7065aa4522431d08018fec8e591ba7c255398140..befcb501b4b1b6330bf3cd53e00e30b01efade6f 100644
+index 5083d0e7d997c1bff7bdd2ef53170c0d4858089e..2a6b4f654033c96804ffa2044c69228b9bbc253e 100644
 --- a/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
-@@ -395,7 +395,7 @@ public class ServerLoginPacketListenerImpl implements ServerLoginPacketListener
+@@ -394,7 +394,7 @@ public class ServerLoginPacketListenerImpl implements ServerLoginPacketListener
  
                          // Paper start
                          com.destroystokyo.paper.profile.PlayerProfile profile = com.destroystokyo.paper.profile.CraftPlayerProfile.asBukkitMirror(ServerLoginPacketListenerImpl.this.gameProfile);

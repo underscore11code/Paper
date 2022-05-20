@@ -785,10 +785,10 @@ index 4379b9948f1eecfe6fd7dea98e298ad5f761019a..3f081183521603824430709886a9cc31
          LOOK,
          JUMP,
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index 785389d11ead646d7f11c883f9784c3950a547aa..7353cfd8316f2c7725bba7d4aee41de135985daa 100644
+index 3b1ee141408d98bae65f31eb88c2667cf20defd0..bc52d2e644b14204e6f62e8f8699d6d36a6b0be1 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-@@ -2664,5 +2664,11 @@ public final class CraftServer implements Server {
+@@ -2669,5 +2669,11 @@ public final class CraftServer implements Server {
      public boolean isStopping() {
          return net.minecraft.server.MinecraftServer.getServer().hasStopped();
      }

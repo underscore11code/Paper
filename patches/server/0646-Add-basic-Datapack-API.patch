@@ -92,7 +92,7 @@ index 0000000000000000000000000000000000000000..cf4374493c11057451a62a655514415c
 +    }
 +}
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index 6f30668471c2076e2bbd8af79791bbe362f4d08e..3cb0b4797015eff95632355e4b78b955a8280a02 100644
+index ae328e3727c6b2e6244cd996f305b2e8fb87402d..c8b261b1aded61fb60f894f1e0168c4a05e02a8d 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 @@ -281,6 +281,7 @@ public final class CraftServer implements Server {
@@ -111,7 +111,7 @@ index 6f30668471c2076e2bbd8af79791bbe362f4d08e..3cb0b4797015eff95632355e4b78b955
      }
  
      public boolean getCommandBlockOverride(String command) {
-@@ -2743,5 +2745,11 @@ public final class CraftServer implements Server {
+@@ -2748,5 +2750,11 @@ public final class CraftServer implements Server {
      public com.destroystokyo.paper.entity.ai.MobGoals getMobGoals() {
          return mobGoals;
      }

@@ -5,10 +5,10 @@ Subject: [PATCH] Validate usernames
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index 9e01ee1776a02dd7be0a47ac3a06e69968d26bdc..94a96c34e207a84a7c9226e9255beb6d0371f068 100644
+index eb8b0d9d0e96f33476edc5f36752fdfc43794be5..3de5717a9b0cd9ff551c2a3b5193285857ce63fd 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-@@ -495,6 +495,12 @@ public class PaperConfig {
+@@ -529,6 +529,12 @@ public class PaperConfig {
          set("settings.unsupported-settings.allow-tnt-duplication", null);
      }
  
@@ -22,10 +22,10 @@ index 9e01ee1776a02dd7be0a47ac3a06e69968d26bdc..94a96c34e207a84a7c9226e9255beb6d
      public static int maxPlayerAutoSavePerTick = 10;
      private static void playerAutoSaveRate() {
 diff --git a/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
-index f5c1dff1d571e89f960f11400edbcbbea0620575..7065aa4522431d08018fec8e591ba7c255398140 100644
+index 049fb028801ecb9796469329d475a114015dbcd8..5083d0e7d997c1bff7bdd2ef53170c0d4858089e 100644
 --- a/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
-@@ -61,6 +61,7 @@ public class ServerLoginPacketListenerImpl implements ServerLoginPacketListener
+@@ -64,6 +64,7 @@ public class ServerLoginPacketListenerImpl implements ServerLoginPacketListener
      private ServerPlayer delayedAcceptPlayer;
      public String hostname = ""; // CraftBukkit - add field
      private int velocityLoginMessageId = -1; // Paper - Velocity support
@@ -33,7 +33,7 @@ index f5c1dff1d571e89f960f11400edbcbbea0620575..7065aa4522431d08018fec8e591ba7c2
  
      public ServerLoginPacketListenerImpl(MinecraftServer server, Connection connection) {
          this.state = ServerLoginPacketListenerImpl.State.HELLO;
-@@ -226,11 +227,39 @@ public class ServerLoginPacketListenerImpl implements ServerLoginPacketListener
+@@ -229,11 +230,39 @@ public class ServerLoginPacketListenerImpl implements ServerLoginPacketListener
          // Paper end
      }
  
@@ -74,7 +74,7 @@ index f5c1dff1d571e89f960f11400edbcbbea0620575..7065aa4522431d08018fec8e591ba7c2
              this.state = ServerLoginPacketListenerImpl.State.KEY;
              this.connection.send(new ClientboundHelloPacket("", this.server.getKeyPair().getPublic().getEncoded(), this.nonce));
 diff --git a/src/main/java/net/minecraft/server/players/PlayerList.java b/src/main/java/net/minecraft/server/players/PlayerList.java
-index ca5026270a44fef244eb566695702bb3f4729367..c88f57256e6f784e39fe74c3b7fc7e3d8b3a618a 100644
+index bb4e844c77c76eb893c55844c5a814ccd337b7f4..32f710e52da781ed9a0df8249a9ca79f1804b24a 100644
 --- a/src/main/java/net/minecraft/server/players/PlayerList.java
 +++ b/src/main/java/net/minecraft/server/players/PlayerList.java
 @@ -707,7 +707,7 @@ public abstract class PlayerList {

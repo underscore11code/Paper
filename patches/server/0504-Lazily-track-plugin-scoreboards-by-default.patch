@@ -14,10 +14,10 @@ this breaks your workflow you can always force all scoreboards to be tracked wit
 settings.track-plugin-scoreboards in paper.yml.
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index 503d0a15a39d70c26140987f076047e3835ce9fa..d58429ef5c7e866ce36a00fd55462cb024043a71 100644
+index c0c86958f23076a01a7769ed10789c5b950cae24..7d22e1b7886ee434a4fb38c92eb75697b67553ac 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-@@ -96,6 +96,11 @@ public class PaperConfig {
+@@ -100,6 +100,11 @@ public class PaperConfig {
          maxJoinsPerTick = getInt("settings.max-joins-per-tick", 3);
      }
  

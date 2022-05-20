@@ -5,10 +5,10 @@ Subject: [PATCH] Add config option for logging player ip addresses
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index 5203a43d707010f6ba43be2d6627d48560b77731..fa912cffb2349914d1a550d3d1c69ba5934658dc 100644
+index 0f1889aedafd51671db41d16d6cefbbefc355c5e..a333d36a6b18937e06e2a4f3ddd8a17df332ea0b 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-@@ -91,6 +91,11 @@ public class PaperConfig {
+@@ -95,6 +95,11 @@ public class PaperConfig {
          }
      }
  
@@ -65,10 +65,10 @@ index af4d9244102bd0ac204f44a8de7f3a7706e3692d..058fb3696c7ece4a7b6971886b1760b2
  
                              networkmanager.send(new ClientboundDisconnectPacket(chatcomponenttext), (future) -> {
 diff --git a/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
-index 4cd92875d60c2f1dcce67ac99e9ba257a10f87b1..f5c1dff1d571e89f960f11400edbcbbea0620575 100644
+index 18f15b0bc60181e1fa78a9cbe9feb3346544f73e..049fb028801ecb9796469329d475a114015dbcd8 100644
 --- a/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
-@@ -220,7 +220,10 @@ public class ServerLoginPacketListenerImpl implements ServerLoginPacketListener
+@@ -223,7 +223,10 @@ public class ServerLoginPacketListenerImpl implements ServerLoginPacketListener
      }
  
      public String getUserName() {
@@ -81,7 +81,7 @@ index 4cd92875d60c2f1dcce67ac99e9ba257a10f87b1..f5c1dff1d571e89f960f11400edbcbbe
  
      @Override
 diff --git a/src/main/java/net/minecraft/server/players/PlayerList.java b/src/main/java/net/minecraft/server/players/PlayerList.java
-index 1fad95b709bbc755e5906a93c8d2ed09b52154ce..7fd530a901aecc49fa7fbbf3e876b0f56b665212 100644
+index 6b3ab58a4446e9ce6f91f870ef8b2511522e0da0..2aa31d8ad15100b3a25dd7da41bf17b126ba937e 100644
 --- a/src/main/java/net/minecraft/server/players/PlayerList.java
 +++ b/src/main/java/net/minecraft/server/players/PlayerList.java
 @@ -238,7 +238,7 @@ public abstract class PlayerList {

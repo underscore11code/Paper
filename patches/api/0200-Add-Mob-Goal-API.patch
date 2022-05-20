@@ -523,10 +523,10 @@ index 0000000000000000000000000000000000000000..8fd399f791b45eb7fc62693ca954eea0
 +    @Deprecated GoalKey<Mob> UNIVERSAL_ANGER_RESET = GoalKey.of(Mob.class, NamespacedKey.minecraft("universal_anger_reset"));
 +}
 diff --git a/src/main/java/org/bukkit/Bukkit.java b/src/main/java/org/bukkit/Bukkit.java
-index 08ac59d4f0935a79323ff34eb585b8a5b5a072b4..21b026aa0f53cf2608b64f9603185562cd237d2d 100644
+index 00c98877b25570e5e470728e5f31ac3224b2bc94..f55bea67192878a9c10976452a8a8eda02e6e32e 100644
 --- a/src/main/java/org/bukkit/Bukkit.java
 +++ b/src/main/java/org/bukkit/Bukkit.java
-@@ -2240,6 +2240,16 @@ public final class Bukkit {
+@@ -2253,6 +2253,16 @@ public final class Bukkit {
      public static boolean isStopping() {
          return server.isStopping();
      }
@@ -544,10 +544,10 @@ index 08ac59d4f0935a79323ff34eb585b8a5b5a072b4..21b026aa0f53cf2608b64f9603185562
  
      @NotNull
 diff --git a/src/main/java/org/bukkit/Server.java b/src/main/java/org/bukkit/Server.java
-index 9b2c1eb7e215a9227c60bc85906fed33ec1dd60a..c11d802408c793c6410118bd281a21e59394066f 100644
+index 1481b98a445ef63110d54caf1abf21bd9eae5a3a..731f02c21016ffdad8ba59a176248c965c88ed62 100644
 --- a/src/main/java/org/bukkit/Server.java
 +++ b/src/main/java/org/bukkit/Server.java
-@@ -1966,5 +1966,13 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi
+@@ -1977,5 +1977,13 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi
       * @return true if server is in the process of being shutdown
       */
      boolean isStopping();

@@ -5,10 +5,10 @@ Subject: [PATCH] incremental chunk and player saving
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index c639557108ad9c59ccdd0b543b5507fbab1e0fa4..5e531f9fc67bd3092b39f1d3b46b9490319dd79a 100644
+index 011a1fea6236e3265d35cdc1321bad3cebaa3d7a..73bc99cb67edb6f4a8b6fb77bd7adbd97e9b60fb 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-@@ -459,4 +459,14 @@ public class PaperConfig {
+@@ -493,4 +493,14 @@ public class PaperConfig {
          set("settings.unsupported-settings.allow-tnt-duplication", null);
      }
  
@@ -50,7 +50,7 @@ index 634affda96921a5453f89ddcc72fc482b162a085..0167b3f0c3f52f540edc381e532d777b
          config.addDefault("world-settings.default." + path, def);
          return config.getBoolean("world-settings." + worldName + "." + path, config.getBoolean("world-settings.default." + path));
 diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
-index 03ef045c166c92efaeeaf655178b9729549e2296..851d63ba918f1fb2ffb975b0b46c8797e2b3b903 100644
+index f85ee370c89b59ad58f182da2ff6d0d11c6e3a8b..5edb1f4be4d0306a22827d1330a08251e5cb1fbe 100644
 --- a/src/main/java/net/minecraft/server/MinecraftServer.java
 +++ b/src/main/java/net/minecraft/server/MinecraftServer.java
 @@ -898,7 +898,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
@@ -343,7 +343,7 @@ index 894186d25863a437e49ef0c10b2f2dab34af7ed0..38af4d10e2e09c0917ae8ff265e5a6c6
          ServerChunkCache chunkproviderserver = this.getChunkSource();
  
 diff --git a/src/main/java/net/minecraft/server/level/ServerPlayer.java b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-index 94fb29f8dbf4f60b59740efda68016411b3d74b0..30e82817418ebe7e61eab3ed290ce938dde42297 100644
+index d60d3ea1ec9c14dafda9f0fffd16ed2ba947789b..0a2c94e289dd0dac88a38516a9be09a03acfc579 100644
 --- a/src/main/java/net/minecraft/server/level/ServerPlayer.java
 +++ b/src/main/java/net/minecraft/server/level/ServerPlayer.java
 @@ -170,6 +170,7 @@ import org.bukkit.inventory.MainHand;
@@ -355,7 +355,7 @@ index 94fb29f8dbf4f60b59740efda68016411b3d74b0..30e82817418ebe7e61eab3ed290ce938
      private static final int NEUTRAL_MOB_DEATH_NOTIFICATION_RADII_Y = 10;
      public ServerGamePacketListenerImpl connection;
 diff --git a/src/main/java/net/minecraft/server/players/PlayerList.java b/src/main/java/net/minecraft/server/players/PlayerList.java
-index e9470af5a168f54c78383553ca634e77ae2a4cf5..f19c9489d0b982a28e2ee8fac6940ecc11fac6af 100644
+index 4ccb008508a008d782f0c639663b423f1a6dfdef..7edadb4795618b38d2fa321faa085cc69f9529bf 100644
 --- a/src/main/java/net/minecraft/server/players/PlayerList.java
 +++ b/src/main/java/net/minecraft/server/players/PlayerList.java
 @@ -560,6 +560,7 @@ public abstract class PlayerList {
@@ -403,7 +403,7 @@ index 8038b37bdfdd41eadb4f3cb4dd7ef245051ed3a4..20b288fdef75c9994b174cb4d7d082c5
      // CraftBukkit start - decompile error
      public static record TicksToSave(SerializableTickContainer<Block> blocks, SerializableTickContainer<Fluid> fluids) {
 diff --git a/src/main/java/net/minecraft/world/level/chunk/LevelChunk.java b/src/main/java/net/minecraft/world/level/chunk/LevelChunk.java
-index 9d667be3fe04b7d86986bd1ecaf4fce8b63198ae..dc95aaa62220f2042e287c7d0d69753b8e891fba 100644
+index 0b049b267a1e1d6b48c035ed54ff24337863fb9e..b9ad77606d88d7ca41c0070063b8599ecc048422 100644
 --- a/src/main/java/net/minecraft/world/level/chunk/LevelChunk.java
 +++ b/src/main/java/net/minecraft/world/level/chunk/LevelChunk.java
 @@ -87,6 +87,12 @@ public class LevelChunk extends ChunkAccess {

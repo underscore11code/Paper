@@ -5,10 +5,10 @@ Subject: [PATCH] Limit recipe packets
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index d58429ef5c7e866ce36a00fd55462cb024043a71..7413cbbcf0ab572483adc0ab915978593b8ea658 100644
+index 5081d106c51f5f555a4b406866e42278f653ae87..5df177eefdf9f57479b95af629156322c0b34bb2 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-@@ -366,6 +366,13 @@ public class PaperConfig {
+@@ -400,6 +400,13 @@ public class PaperConfig {
          tabSpamLimit = getInt("settings.spam-limiter.tab-spam-limit", tabSpamLimit);
      }
  
@@ -23,7 +23,7 @@ index d58429ef5c7e866ce36a00fd55462cb024043a71..7413cbbcf0ab572483adc0ab91597859
      public static boolean velocityOnlineMode;
      public static byte[] velocitySecretKey;
 diff --git a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-index 869e74ae1eaf7ad9c923ac1c102e2801402d77b3..ae2ceff37d4dbadc18078672dcb428dc75c45a8f 100644
+index ad4e5c8c68712a9917352024427020f4793c762a..0a853329f7d3c0fe88dc033cd7d197a61ed590fc 100644
 --- a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 @@ -230,6 +230,7 @@ public class ServerGamePacketListenerImpl implements ServerPlayerConnection, Ser

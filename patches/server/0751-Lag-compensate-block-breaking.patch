@@ -6,10 +6,10 @@ Subject: [PATCH] Lag compensate block breaking
 Use time instead of ticks if ticks fall behind
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index da3eca94623a81d178166cc4689bb95a829837cc..d673f1d051f943c65bceccc2c8d8172e3259abb4 100644
+index c191b4ff4d3490190b0bcabe245bbbc4133809a0..563b951eff86f612b9a7de6368b3ee14264f06ae 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-@@ -619,4 +619,10 @@ public class PaperConfig {
+@@ -653,4 +653,10 @@ public class PaperConfig {
              }
          }
      }

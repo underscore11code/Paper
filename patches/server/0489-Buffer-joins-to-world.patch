@@ -8,10 +8,10 @@ the world per tick, this attempts to reduce the impact that join floods
 has on the server
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index ff855232e9b94d1b05d7abb8fd5ce243cc0cd324..503d0a15a39d70c26140987f076047e3835ce9fa 100644
+index f346925afa1e70bb5dd214cbec0bccc7b27ceaef..c0c86958f23076a01a7769ed10789c5b950cae24 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-@@ -91,6 +91,11 @@ public class PaperConfig {
+@@ -95,6 +95,11 @@ public class PaperConfig {
          }
      }
  

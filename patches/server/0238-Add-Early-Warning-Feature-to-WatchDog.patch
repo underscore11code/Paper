@@ -9,10 +9,10 @@ thread dumps at an interval until the point of crash.
 This will help diagnose what was going on in that time before the crash.
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index d654affc5565622cfabde9b838aa2b40e4e122bb..23ddaffadfafc3b23a09fcba2bf708f570415006 100644
+index 566ce0dbff9ee8bf43f8d40c6df3a81df6ab6061..72e9c8392c9a25370e1e403bd59d659c62e7a441 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-@@ -25,6 +25,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
+@@ -28,6 +28,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
  import co.aikar.timings.Timings;
  import co.aikar.timings.TimingsManager;
  import org.spigotmc.SpigotConfig;
@@ -20,7 +20,7 @@ index d654affc5565622cfabde9b838aa2b40e4e122bb..23ddaffadfafc3b23a09fcba2bf708f5
  
  public class PaperConfig {
  
-@@ -319,6 +320,14 @@ public class PaperConfig {
+@@ -341,6 +342,14 @@ public class PaperConfig {
          }
      }
  
@@ -36,7 +36,7 @@ index d654affc5565622cfabde9b838aa2b40e4e122bb..23ddaffadfafc3b23a09fcba2bf708f5
      public static int tabSpamLimit = 500;
      private static void tabSpamLimiters() {
 diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
-index 4da9491425649b2b930b2304c4aa6692540ff4cb..d6e6bc73f9bbcae99126876a9abdd3468d6c2a7f 100644
+index c7881eebb02424ce488d2c04aa736f17402109a0..4f070d2a7ff5dfe9890e79c30911a1fe1ec9983b 100644
 --- a/src/main/java/net/minecraft/server/MinecraftServer.java
 +++ b/src/main/java/net/minecraft/server/MinecraftServer.java
 @@ -1096,6 +1096,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
@@ -48,7 +48,7 @@ index 4da9491425649b2b930b2304c4aa6692540ff4cb..d6e6bc73f9bbcae99126876a9abdd346
                  long start = System.nanoTime(), curTime, tickSection = start; // Paper - Further improve server tick loop
                  lastTick = start - TICK_TIME; // Paper
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index 9ef4ba665c4f8abaf7ccefa254e15fa11e814fc9..dd999bd389e66c8ea00ed5ef5b0d9bbe216aeb94 100644
+index 882a2afed87c1b0d23733831c33391b414c4efcb..32e36ac1955ef02388a492c39c3a2698e229641b 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 @@ -905,6 +905,7 @@ public final class CraftServer implements Server {

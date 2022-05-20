@@ -24,10 +24,10 @@ and an action can be defined: DROP or KICK
 If interval or rate are less-than 0, the limit is ignored
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index bc91acb8b7e407092102e39037fc6f3fd380a073..da3eca94623a81d178166cc4689bb95a829837cc 100644
+index 467bec684368a32b65b8a67ae36e4e141498ca23..c191b4ff4d3490190b0bcabe245bbbc4133809a0 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-@@ -521,4 +521,102 @@ public class PaperConfig {
+@@ -555,4 +555,102 @@ public class PaperConfig {
          itemValidationBookAuthorLength = getInt("settings.item-validation.book.author", itemValidationBookAuthorLength);
          itemValidationBookPageLength = getInt("settings.item-validation.book.page", itemValidationBookPageLength);
      }

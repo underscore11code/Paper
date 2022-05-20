@@ -9,10 +9,10 @@ loss, which forces the server to lose the same precision as the client
 keeping them in sync.
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index ccc60a5465efa2b71fc2593d75af62c0b64fe66c..1adbceadd5df96e17796561a40eb7b760493440e 100644
+index 020c6cdb3aea76208f332555de5f358f73e21b2a..5cbedc0900dac8ef7ac33f0af89255ed761a2096 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-@@ -101,6 +101,11 @@ public class PaperConfig {
+@@ -105,6 +105,11 @@ public class PaperConfig {
          trackPluginScoreboards = getBoolean("settings.track-plugin-scoreboards", false);
      }
  

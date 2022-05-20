@@ -9,10 +9,10 @@ a ton of noise to plugin developers.
 These do not help plugin developers if they bring moise noise than value.
 
 diff --git a/src/main/java/org/bukkit/Bukkit.java b/src/main/java/org/bukkit/Bukkit.java
-index ca6f3a18ca8902b99c1c8c21b6da5def7fdb2aa8..b4256e2c66e3f578a4499dc1fff50f213898b96b 100644
+index 32facfd6cff045bc203b5aa5920d23550dd9eecd..3a1f3b28a8977e2c3f9e7d04ab684f1df61ac2bc 100644
 --- a/src/main/java/org/bukkit/Bukkit.java
 +++ b/src/main/java/org/bukkit/Bukkit.java
-@@ -1158,10 +1158,8 @@ public final class Bukkit {
+@@ -1160,10 +1160,8 @@ public final class Bukkit {
       * @param name the name the player to retrieve
       * @return an offline player
       * @see #getOfflinePlayer(java.util.UUID)
@@ -24,7 +24,7 @@ index ca6f3a18ca8902b99c1c8c21b6da5def7fdb2aa8..b4256e2c66e3f578a4499dc1fff50f21
      @NotNull
      public static OfflinePlayer getOfflinePlayer(@NotNull String name) {
          return server.getOfflinePlayer(name);
-@@ -1699,7 +1697,7 @@ public final class Bukkit {
+@@ -1701,7 +1699,7 @@ public final class Bukkit {
       *
       * @return the scoreboard manager or null if no worlds are loaded.
       */
@@ -33,7 +33,7 @@ index ca6f3a18ca8902b99c1c8c21b6da5def7fdb2aa8..b4256e2c66e3f578a4499dc1fff50f21
      public static ScoreboardManager getScoreboardManager() {
          return server.getScoreboardManager();
      }
-@@ -1996,7 +1994,7 @@ public final class Bukkit {
+@@ -1998,7 +1996,7 @@ public final class Bukkit {
       * @param clazz the class of the tag entries
       * @return the tag or null
       */
@@ -168,10 +168,10 @@ index 6277451c3c6c551078c237cd767b6d70c4f585ea..10f5cfb1885833a1d2c1027c03974da4
      CRACKED(0x0),
      GLYPHED(0x1),
 diff --git a/src/main/java/org/bukkit/Server.java b/src/main/java/org/bukkit/Server.java
-index b8ed8d5d48cb4f1b2f598e2c48e4423ab2d899f4..102ce4e488d5b6fd4a19766e9fa02d29075b2c33 100644
+index 5ad7eaf3b88955130b36695627365213b5b6e461..8f257f0b73f47d2b01ec6758ae742014564bbd95 100644
 --- a/src/main/java/org/bukkit/Server.java
 +++ b/src/main/java/org/bukkit/Server.java
-@@ -982,10 +982,8 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi
+@@ -984,10 +984,8 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi
       * @param name the name the player to retrieve
       * @return an offline player
       * @see #getOfflinePlayer(java.util.UUID)
@@ -183,7 +183,7 @@ index b8ed8d5d48cb4f1b2f598e2c48e4423ab2d899f4..102ce4e488d5b6fd4a19766e9fa02d29
      @NotNull
      public OfflinePlayer getOfflinePlayer(@NotNull String name);
  
-@@ -1442,7 +1440,7 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi
+@@ -1444,7 +1442,7 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi
       *
       * @return the scoreboard manager or null if no worlds are loaded.
       */

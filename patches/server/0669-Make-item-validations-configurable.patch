@@ -5,10 +5,10 @@ Subject: [PATCH] Make item validations configurable
 
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index fae61ada619d86b6721c7a57fecd485188919a25..3d1319af2dbade4234025793303333cb95d9c019 100644
+index ca8e3ba3b4c9fb82f002e38cf2497f56f0393f5c..467bec684368a32b65b8a67ae36e4e141498ca23 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-@@ -506,4 +506,19 @@ public class PaperConfig {
+@@ -540,4 +540,19 @@ public class PaperConfig {
          config.set("settings.unsupported-settings.allow-headless-pistons-readme", "This setting controls if players should be able to create headless pistons.");
          allowHeadlessPistons = getBoolean("settings.unsupported-settings.allow-headless-pistons", false);
      }
@@ -29,7 +29,7 @@ index fae61ada619d86b6721c7a57fecd485188919a25..3d1319af2dbade4234025793303333cb
 +    }
  }
 diff --git a/src/main/java/org/bukkit/craftbukkit/inventory/CraftMetaBook.java b/src/main/java/org/bukkit/craftbukkit/inventory/CraftMetaBook.java
-index 0f753f4868141ecc383877ea3a666a383f2e3339..ebb643fc0477409d1efb4e9af59675045fa6b8bb 100644
+index fefa4d83c5699be0b55794cd28d13d27b66ef108..182cd92b4322127a81d5f14e5d4fd156057979c2 100644
 --- a/src/main/java/org/bukkit/craftbukkit/inventory/CraftMetaBook.java
 +++ b/src/main/java/org/bukkit/craftbukkit/inventory/CraftMetaBook.java
 @@ -92,11 +92,11 @@ public class CraftMetaBook extends CraftMetaItem implements BookMeta {
@@ -56,7 +56,7 @@ index 0f753f4868141ecc383877ea3a666a383f2e3339..ebb643fc0477409d1efb4e9af5967504
          }
      }
 diff --git a/src/main/java/org/bukkit/craftbukkit/inventory/CraftMetaItem.java b/src/main/java/org/bukkit/craftbukkit/inventory/CraftMetaItem.java
-index 671ac759424eaf9b2573545c6fcbec1f3a0ef731..3b0341fecee0d122d2ddf358bc615daae1c58f8b 100644
+index 24588933984cea75e983752ebd0c5643ff1e7846..1fe46049cc33c24db04fbfcde36ab275c03177bf 100644
 --- a/src/main/java/org/bukkit/craftbukkit/inventory/CraftMetaItem.java
 +++ b/src/main/java/org/bukkit/craftbukkit/inventory/CraftMetaItem.java
 @@ -357,18 +357,18 @@ class CraftMetaItem implements ItemMeta, Damageable, Repairable, BlockDataMeta {

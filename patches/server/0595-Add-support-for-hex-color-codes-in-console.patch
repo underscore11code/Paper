@@ -6,10 +6,10 @@ Subject: [PATCH] Add support for hex color codes in console
 Converts upstream's hex color code legacy format into actual hex color codes in the console.
 
 diff --git a/src/main/java/com/destroystokyo/paper/PaperConfig.java b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-index 1adbceadd5df96e17796561a40eb7b760493440e..c07257314e070d4423c4f53f58cb0962e3ead131 100644
+index a708ceb59b992953c1e98502b43508711f0f0ad7..e324d59313721d2a0ab35049c0fdf9820dc3a9aa 100644
 --- a/src/main/java/com/destroystokyo/paper/PaperConfig.java
 +++ b/src/main/java/com/destroystokyo/paper/PaperConfig.java
-@@ -454,8 +454,10 @@ public class PaperConfig {
+@@ -488,8 +488,10 @@ public class PaperConfig {
      }
  
      public static boolean deobfuscateStacktraces = true;
